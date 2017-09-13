@@ -1,10 +1,12 @@
 package Models;
 
+import Shaders.Shader;
 import Utils.Constants;
 import Utils.ObjectLoader;
 import Utils.VBOManager;
 
 public class Model {
+    Shader shaderProgram;
 
 
     private int vaoID;
@@ -12,16 +14,41 @@ public class Model {
 
     ModelData data;
 
+    //do tworzenia modelu z palca,
+    //używamy tutaj index buffering, ze względu na tablice z indeksami
     public Model(float[] vertices, int[] indices) {
         data = new ModelData(indices.length);
 
         data.setIndices(indices);
         data.setVertices(vertices);
 
-        load();
+        loadToVAO();
     }
 
 
+
+    //to się przyda do ładowania modeli z pliku,
+    //wystarczy podać nazwę pliku, który jest w folderze modelsData, bez rozszerzenia
+    public Model(String filename)
+    {
+        ModelData modelData = ObjectLoader.loadModel(filename, ObjectLoader.FacesMode.VertexNormalIndices); //to facesMode niech zostanie
+        //załadowanie obiektu z wierzchołkami, normlanymi i współrzędnymi teksturowania
+        this.data = modelData;
+        //ładuj do vao
+        loadToVAO();
+    }
+
+
+    //ładowanie do bufora VAO, wykonywane jednokrotnie po inicjalizacji obiektu
+    //jeżeli obiekt nie ma być generowany to nie powinien być ładowany do bufora VAO
+    private void loadToVAO()
+    {
+        VBOManager.getInstance().loadToVAO(this);
+    }
+
+
+
+    //gettery i settery
     public ModelData getData() {
         return data;
     }
@@ -36,33 +63,6 @@ public class Model {
         return data.vertexCount;
     }
 
-    public Model(String filename)
-    {
-        ModelData modelData = ObjectLoader.loadModel(filename, ObjectLoader.FacesMode.VertexNormalIndices);
-        this.data = modelData;
-        load();
-    }
-
-
-
-    public void load()
-    {
-        loadToVAO();
-    }
-
-    private void loadToVAO()
-    {
-        VBOManager.getInstance().loadToVAO(this);
-    }
-
-
-    public void loadModel(String fileName) {
-        String fullPath = Constants.MODELS_PATH + fileName;
-        ObjectLoader objectLoader = new ObjectLoader();
-
-        //use object loader to put data into vertices, normals and texCoords lists
-
-    }
 
     public  int getVaoID()
     {
