@@ -4,9 +4,6 @@ import Utils.Constants;
 import Utils.ObjectLoader;
 import Utils.VBOManager;
 
-import java.io.File;
-import java.io.IOException;
-
 public class Model {
 
 
@@ -46,23 +43,7 @@ public class Model {
         load();
     }
 
-    public Model(float [] vertices)
-    {
-        data = new ModelData(vertices.length / 3);
 
-        data.setVertices(vertices);
-        load();
-
-    }
-
-    public Model(int [] indices)
-    {
-        data = new ModelData(indices.length);
-
-        data.setIndices(indices);
-        load();
-
-    }
 
     public void load()
     {
@@ -76,7 +57,7 @@ public class Model {
 
 
     public void loadModel(String fileName) {
-        String fullPath = Constants.MODELSPATH + fileName;
+        String fullPath = Constants.MODELS_PATH + fileName;
         ObjectLoader objectLoader = new ObjectLoader();
 
         //use object loader to put data into vertices, normals and texCoords lists

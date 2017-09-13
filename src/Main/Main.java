@@ -2,6 +2,7 @@ package Main;
 
 import Models.Model;
 import Models.ModelsRenderer;
+import Shaders.Shader;
 import Utils.ApplicationEventsManager;
 import Utils.Constants;
 import Utils.DisplayManager;
@@ -44,10 +45,12 @@ public class Main {
                 3, 1, 2
         };
         ModelsRenderer renderer = new ModelsRenderer();
+        Shader shader = new Shader("vertexShader", "fragmentShader");
 
 
 
-        Model model = new Model("szescian2");
+        Model model = new Model(vertices, indices);  //new Model("szescian2");
+
         renderer.addModelsToRender(model);
 
 
@@ -56,9 +59,14 @@ public class Main {
         }
 
         while (!Display.isCloseRequested()) {
+            shader.startUsingShader();
+
             prepare();
             renderer.renderModels();
             displayManager.update();
+
+
+            shader.stopUsingShader();
         }
 
 

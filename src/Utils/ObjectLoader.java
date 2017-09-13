@@ -1,8 +1,6 @@
 package Utils;
 
-import Models.Model;
 import Models.ModelData;
-import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -27,7 +25,7 @@ public class ObjectLoader {
             throw new RuntimeException("Facesmode VertexNormalIndicesWithoutTextureCoordinateIndices is not supported");
         FileReader fileReader;
         try {
-            fileReader = new FileReader(new File(Constants.MODELSPATH + fileName + ".obj"));
+            fileReader = new FileReader(new File(Constants.MODELS_PATH + fileName + ".obj"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.err.println("Plik " + fileName + " nie istnieje!");

@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import java.io.FileInputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -124,6 +123,6 @@ public class VBOManager implements IApplicationEvents {
             GL15.glDeleteBuffers(vbo);
         }
 
-        System.out.println("VAOs and VBOs cleaned up succesfully");
+        System.out.println("bufory VAO i VBO zostały wyczyszczone pomyślnie.");
     }
 }
