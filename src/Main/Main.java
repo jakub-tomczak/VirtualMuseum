@@ -32,11 +32,20 @@ public class Main {
 
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
-        float[] vertices = { -0.5f, 0.5f, 0f, -0.5f, -0.5f, 0f, 0.5f, -0.5f, 0f, 0.5f, -0.5f, 0f, 0.5f, 0.5f, 0f, -0.5f, 0.5f, 0f };
+        float[] vertices = {
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                };
+        int [] indices = {
+                0, 1, 3,
+                3, 1, 2
+        };
         ModelsRenderer renderer = new ModelsRenderer();
 
 
-        Model model = new Model(vertices);
+        Model model = new Model(vertices, indices);
         renderer.addModelsToRender(model);
 
 

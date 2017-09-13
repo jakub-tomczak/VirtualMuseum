@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ModelData {
 
-    float [] vertices ;
-    float [] normals ;
-    float[] texCoords;
-
+    private float[] vertices;
+    private float[] normals;
+    private float[] texCoords;
+    private int[] indices;
 
 
     public float[] getNormals() {
@@ -35,10 +35,15 @@ public class ModelData {
         this.texCoords = texCoords;
     }
 
+    public void setIndices(int[] indices) {
+        this.indices = indices;
+    }
+
+    public int [] getIndices() { return this.indices;}
+
     int vertexCount;
 
-    public ModelData(int vertexCount)
-    {
+    public ModelData(int vertexCount) {
         this.vertexCount = vertexCount;
         vertices = new float[vertexCount];
         normals = new float[vertexCount];

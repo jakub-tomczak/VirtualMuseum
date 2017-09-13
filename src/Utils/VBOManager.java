@@ -1,27 +1,28 @@
 package Utils;
 
 import Models.Model;
-import Models.ModelData;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VAOManager implements IApplicationEvents {
+public class VBOManager implements IApplicationEvents {
     List<Integer> vboList = new ArrayList<>();
     List<Integer> vaoList = new ArrayList<>();
 
-    private static VAOManager vaoManager;
+    private static VBOManager vaoManager;
 
-    public static VAOManager getInstance()
+    public static VBOManager getInstance()
     {
         if(vaoManager == null)
-            vaoManager = new VAOManager();
+            vaoManager = new VBOManager();
 
         return vaoManager;
     }
@@ -33,16 +34,35 @@ public class VAOManager implements IApplicationEvents {
         return vaoID;
     }
 
-    public VAOManager()
+    public VBOManager()
     {
         vaoID = 0;
+        ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }
 
     public void loadToVAO(Model model)
     {
         model.setVaoID(createVAO());
+        bindIndicesBuffer(model.getData().getIndices());
         putDataToVBO(0, model.getData().getVertices());
         destroyVAO();
+    }
+
+    private void bindIndicesBuffer(int [] indices)
+    {
+        int vboID = GL15.glGenBuffers();
+        vboList.add(vboID);
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboID);
+        IntBuffer buff = putDataToIntBuffer(indices);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buff, GL15.GL_STATIC_DRAW);
+    }
+
+    private IntBuffer putDataToIntBuffer(int [] data)
+    {
+        IntBuffer buffer = BufferUtils.createIntBuffer(data.length);
+        buffer.put(data);
+        buffer.flip();
+        return buffer;
     }
 
     private int createVAO()

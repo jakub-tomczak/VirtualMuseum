@@ -2,7 +2,7 @@ package Models;
 
 import Utils.Constants;
 import Utils.ObjectLoader;
-import Utils.VAOManager;
+import Utils.VBOManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,15 @@ public class Model {
     private int vertexCount;
 
     ModelData data;
+
+    public Model(float[] vertices, int[] indices) {
+        data = new ModelData(indices.length);
+
+        data.setIndices(indices);
+        data.setVertices(vertices);
+
+        load();
+    }
 
 
     public ModelData getData() {
@@ -43,7 +52,16 @@ public class Model {
     {
         data = new ModelData(vertices.length / 3);
 
-        data.vertices = vertices;
+        data.setVertices(vertices);
+        load();
+
+    }
+
+    public Model(int [] indices)
+    {
+        data = new ModelData(indices.length);
+
+        data.setIndices(indices);
         load();
 
     }
@@ -55,7 +73,7 @@ public class Model {
 
     private void loadToVAO()
     {
-        VAOManager.getInstance().loadToVAO(this);
+        VBOManager.getInstance().loadToVAO(this);
     }
 
 
