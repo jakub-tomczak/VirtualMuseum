@@ -48,6 +48,14 @@ public class ModelData {
         vertices = new float[vertexCount];
         normals = new float[vertexCount];
         texCoords = new float[vertexCount];
+    }
 
+    public ModelData(float [] vertices, float [] normals, float []texCoords, int [] indices)
+    {
+        this.vertexCount = vertices.length / 3;
+        this.vertices = vertices;
+        this.normals = normals;
+        this.texCoords = texCoords;
+        this.indices = indices;
     }
 }

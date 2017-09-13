@@ -40,12 +40,10 @@ public class Model {
     }
 
     public Model(String filename)
-            throws IOException
     {
-        File file = new File(filename);
-        if(!file.exists())
-            throw new IOException(String.format("Plik %s nie istnieje", filename));
-
+        ModelData modelData = ObjectLoader.loadModel(filename, ObjectLoader.FacesMode.VertexNormalIndices);
+        this.data = modelData;
+        load();
     }
 
     public Model(float [] vertices)

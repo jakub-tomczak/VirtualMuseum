@@ -1,13 +1,13 @@
 package Utils;
 
+import Interfaces.IApplicationEvents;
 import Models.Model;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-
-import java.nio.Buffer;
+import java.io.FileInputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ public class VBOManager implements IApplicationEvents {
 
     public VBOManager()
     {
+
         vaoID = 0;
         ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }
@@ -47,6 +48,8 @@ public class VBOManager implements IApplicationEvents {
         putDataToVBO(0, model.getData().getVertices());
         destroyVAO();
     }
+
+
 
     private void bindIndicesBuffer(int [] indices)
     {

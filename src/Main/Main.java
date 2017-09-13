@@ -5,6 +5,7 @@ import Models.ModelsRenderer;
 import Utils.ApplicationEventsManager;
 import Utils.Constants;
 import Utils.DisplayManager;
+import Utils.ObjectLoader;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
@@ -45,7 +46,8 @@ public class Main {
         ModelsRenderer renderer = new ModelsRenderer();
 
 
-        Model model = new Model(vertices, indices);
+
+        Model model = new Model("szescian2");
         renderer.addModelsToRender(model);
 
 

@@ -1,5 +1,6 @@
 package Models;
 
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -25,6 +26,8 @@ public class ModelsRenderer {
 
     public void renderModels() {
         for (Model model : modelsToRender) {
+
+
             GL30.glBindVertexArray(model.getVaoID());
             GL20.glEnableVertexAttribArray(0);
             //GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
