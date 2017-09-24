@@ -10,10 +10,6 @@ import java.util.List;
 
 public class ObjectLoader {
 
-    public ObjectLoader() {
-
-    }
-
     public enum FacesMode {
         None,
         VertexNormalIndices,                                //f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
@@ -115,24 +111,27 @@ public class ObjectLoader {
 
         do {
 
-            for (int i = 1; i < 4; i++) {
-                String[] vertex = data[i].split(splitChar);
+            for (int i = 0; i < 3; i++) {
+                //rozbij linie
+                String[] vertex = data[i+1].split(splitChar);   //data[0] = f
                 try {
                     processVertex(vertex, indices, texCoords, normals, normalsArray, texCoordsArray, facesMode);
 
                 } catch (NumberFormatException ex) {
-                    System.err.println(ex.getMessage());
+                    System.err.println("Number formatting exception " + ex.getMessage());
                 }
             }
             line = reader.readLine();
-            if(line == null)
+            if(line == null)    //end of file
                 break;
             data = line.split(" ");
-            if (!line.startsWith("f ")) {
-                System.out.println("Line doesn't start with f");
-                continue;
 
+            //zakładamy, że po f nie ma lini z v, vt, czy vn
+            if (!line.startsWith("f ")) {
+                System.err.println("Line doesn't start with f :" + line);
+                continue;
             }
+
         } while (line != null);
 
     }
@@ -159,14 +158,15 @@ public class ObjectLoader {
         int vertexIndex = Integer.parseInt(data[0]) - 1;
 
         indices.add(vertexIndex);
+
         if (facesMode == FacesMode.VertexNormalIndices) {
             Vector2f currentTex = texCoords.get(Integer.parseInt(data[1]) - 1);
             texCoordsArray[vertexIndex * 2] = currentTex.x;
-            texCoordsArray[vertexIndex * 2 + 1] = currentTex.y;
+            texCoordsArray[vertexIndex * 2 + 1] = 1 - currentTex.y;  //openGL zaczyna od top-left, blender od bottom-left
 
         }
 
-        //openGL zaczyna od top-left, blender od bottom-left
+        //przepisz vector3f do tablicy
         Vector3f currentNorm = normals.get(Integer.parseInt(data[2]) - 1);
         normalsArray[vertexIndex * 3] = currentNorm.x;
         normalsArray[vertexIndex * 3 + 1] = currentNorm.y;

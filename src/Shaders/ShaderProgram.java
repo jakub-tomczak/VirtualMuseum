@@ -1,14 +1,18 @@
 package Shaders;
 
 import Utils.Constants;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 
 public abstract class ShaderProgram {
     private int programID;
@@ -41,6 +45,14 @@ public abstract class ShaderProgram {
 
         GL20.glValidateProgram(programID);
 
+
+        getAlUniformLocations();
+    }
+
+    protected abstract void getAlUniformLocations();
+
+    protected int getUniformLocation(String uniformName) {
+        return GL20.glGetUniformLocation(programID, uniformName);
     }
 
     public void startUsingShader() {
@@ -107,14 +119,48 @@ public abstract class ShaderProgram {
             System.err.println("Błąd przy kompilacji shadera");
             System.out.println(GL20.glGetShaderInfoLog(shaderID, 300));
             System.exit(1);
-        }
-        else
-        {
-            System.out.println("Kompilacja " + fileName  + " się powiodła.");
+        } else {
+            System.out.println("Kompilacja " + fileName + " się powiodła.");
         }
 
         return shaderID;
 
 
+    }
+
+
+
+    //metody do ustawiania uniform variables
+
+    /*
+    Uniform variables are used to communicate with your vertex or fragment shader from "outside".
+    Uniform variables are read-only and have the same value among all processed vertices. You can only change them within your program.
+    */
+    //ustawia zmienna typu float
+    protected void loadFloat(int location, float value)
+    {
+        GL20.glUniform1f(location, value);
+    }
+
+    protected void loadVec3f(int location, Vector3f vector)
+    {
+        GL20.glUniform3f(location, vector.x, vector.y, vector.z);
+    }
+
+    //ładowanie bool polega na załadowaniu float
+    protected void loadBool(int location, boolean value)
+    {
+        GL20.glUniform1f(location, value ? 1f : 0f);
+    }
+
+
+    private FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+    //ładuje macierz 4x4 złożoną z floatów
+    //potrzeba float buffera do tego
+    protected void loadMat4f(int location, Matrix4f matrix)
+    {
+        matrix.store(matrixBuffer);
+        matrixBuffer.flip();    //zmiana bufora na odczyt
+        GL20.glUniformMatrix4(location, false, matrixBuffer);
     }
 }

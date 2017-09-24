@@ -54,7 +54,7 @@ public class Texture {
         return texture;
     }
 
-    private int getTextureHandle()
+    private int getTextureHandler()
     {
         return texID;
     }

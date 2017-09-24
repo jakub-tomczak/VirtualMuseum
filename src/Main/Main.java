@@ -34,13 +34,72 @@ public class Main {
 
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
-        float[] vertices = {
-                -0.5f, 0.5f, 0f,
-                -0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                0.5f, 0.5f, 0f,
+        float[] vertices2 =
+                {
+                        0.100000f, -1.000000f, -1.000000f
+                        , 0.100000f, -1.000000f, 1.000000f
+                        , -0.100000f, -1.000000f, 1.000000f
+                        , -0.100000f, -1.000000f, -1.000000f
+                        , 0.100000f, 1.000000f, -0.999999f
+                        , 0.100000f, 1.000000f, 1.000001f
+                        , -0.100000f, 1.000000f, 1.000000f
+                        , -0.100000f, 1.000000f, -1.000000f
                 };
-        int [] indices = {
+
+        float[] vertices3 =
+                {
+
+                        .5f, .5f, .5f,
+                        .5f, .5f, -.5f,
+                        -.5f, .5f, -.5f,
+                        -.5f, .5f, .5f,
+
+                        .5f, -.5f, .5f,
+                        .5f, -.5f, -.5f,
+                        -.5f, -.5f, -.5f,
+                        -.5f, -.5f, .5f
+                };
+
+        int []indices3 =
+                {
+                        0,1,2,
+                        2,3,0,
+                        0,5,1,
+                        1,5,2,
+                        2,5,6,
+                        6,2,3,
+                        3,6,7,
+                        7,3,0,
+                        0,7,4,
+                        4,0,5,
+                        5,6,4,
+                        4,6,7
+
+                };
+
+        float[] vertices = {
+                -1f, 1f, 0f,
+                -1f, -1f, 0f,
+                1f, -1f, 0f,
+                1f, 1f, 0f,
+        };
+        int[] indices2 =
+                {
+                        0, 2, 3,
+                        4, 6, 5, 4, 1,
+                        0, 1, 6,
+                        2, 6, 3,
+                        2, 0, 7,
+                        4, 0, 1,
+                        2, 4, 7,
+                        6, 4, 5,
+                        1, 1, 5,
+                        6, 6, 7,
+                        3, 0, 3,
+                        7
+                };
+
+        int[] indices = {
                 0, 1, 3,
                 3, 1, 2
         };
@@ -48,8 +107,7 @@ public class Main {
         Shader shader = new Shader("vertexShader", "fragmentShader");
 
 
-
-        Model model = new Model(vertices, indices);  //new Model("szescian2");
+        Model model = new Model(vertices3, indices3);//new Model("szescian2"); //
 
         renderer.addModelsToRender(model);
 
@@ -68,7 +126,6 @@ public class Main {
 
             shader.stopUsingShader();
         }
-
 
 
         ApplicationEventsManager.getInstance().onApplicationEnded();
