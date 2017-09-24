@@ -52,7 +52,7 @@ public class ModelData {
 
     public ModelData(float [] vertices, float [] normals, float []texCoords, int [] indices)
     {
-        this.vertexCount = vertices.length / 3;
+        this.vertexCount = indices.length;
         this.vertices = vertices;
         this.normals = normals;
         this.texCoords = texCoords;

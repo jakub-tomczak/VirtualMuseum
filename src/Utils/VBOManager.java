@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -18,9 +19,8 @@ public class VBOManager implements IApplicationEvents {
 
     private static VBOManager vaoManager;
 
-    public static VBOManager getInstance()
-    {
-        if(vaoManager == null)
+    public static VBOManager getInstance() {
+        if (vaoManager == null)
             vaoManager = new VBOManager();
 
         return vaoManager;
@@ -28,30 +28,27 @@ public class VBOManager implements IApplicationEvents {
 
     int vaoID;
 
-    public int getVaoID()
-    {
+    public int getVaoID() {
         return vaoID;
     }
 
-    public VBOManager()
-    {
+    public VBOManager() {
 
         vaoID = 0;
         ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }
 
-    public void loadToVAO(Model model)
-    {
+    public void loadToVAO(Model model) {
         model.setVaoID(createVAO());
         bindIndicesBuffer(model.getData().getIndices());
-        putDataToVBO(0, model.getData().getVertices());
+        putDataToVBO(0, 3, model.getData().getVertices());
+        if (model.modelTexture != null)
+            putDataToVBO(1, 2, model.getData().getTexCoords());
         destroyVAO();
     }
 
 
-
-    private void bindIndicesBuffer(int [] indices)
-    {
+    private void bindIndicesBuffer(int[] indices) {
         int vboID = GL15.glGenBuffers();
         vboList.add(vboID);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboID);
@@ -59,43 +56,38 @@ public class VBOManager implements IApplicationEvents {
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buff, GL15.GL_STATIC_DRAW);
     }
 
-    private IntBuffer putDataToIntBuffer(int [] data)
-    {
+    private IntBuffer putDataToIntBuffer(int[] data) {
         IntBuffer buffer = BufferUtils.createIntBuffer(data.length);
         buffer.put(data);
         buffer.flip();
         return buffer;
     }
 
-    private int createVAO()
-    {
-        int vaoID  = GL30.glGenVertexArrays();
+    private int createVAO() {
+        int vaoID = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vaoID);
         vaoList.add(vaoID);
         return vaoID;
     }
 
-    private void putDataToVBO(int attributeSize, float [] data)
-    {
+    private void putDataToVBO(int attributeSize, int coordinateSize, float[] data) {
         int vboID = GL15.glGenBuffers();
         vboList.add(vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
 
         FloatBuffer buff = dataToFloatBuffer(data);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buff, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(attributeSize, 3, GL11.GL_FLOAT, false, 0, 0);
+        GL20.glVertexAttribPointer(attributeSize, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
 
         //unbind current vbo
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
-    private void destroyVAO()
-    {
+    private void destroyVAO() {
         GL30.glBindVertexArray(0);
     }
 
-    private FloatBuffer dataToFloatBuffer(float [] data)
-    {
+    private FloatBuffer dataToFloatBuffer(float[] data) {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
         buffer.put(data).
                 flip();
@@ -114,12 +106,10 @@ public class VBOManager implements IApplicationEvents {
     }
 
     private void cleanUPBuffers() {
-        for(int vao: vaoList)
-        {
+        for (int vao : vaoList) {
             GL30.glDeleteVertexArrays(vao);
         }
-        for(int vbo: vboList)
-        {
+        for (int vbo : vboList) {
             GL15.glDeleteBuffers(vbo);
         }
 

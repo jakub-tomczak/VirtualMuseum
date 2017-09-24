@@ -87,6 +87,7 @@ public class ObjectLoader {
         //przepisanie indeksów
         for (int i = 0; i < indices.size(); i++) {
             indicesArray[i] = indices.get(i);
+           // System.out.println(indicesArray[i] + " = " + vertices.get(indicesArray[i]));
         }
 
         return new ModelData(verticesArray, normalsArray, texCoordsArray, indicesArray);
@@ -153,6 +154,9 @@ public class ObjectLoader {
                                       List<Vector3f> normals,
                                       float[] normalsArray,
                                       float[] texCoordsArray, FacesMode facesMode) throws NumberFormatException {
+        //data[0] = v
+        //data[1] = vt
+        //data[2] = vn
 
         //indeksowanie zaczyna się w openGL od 1, a tablicy od 0
         int vertexIndex = Integer.parseInt(data[0]) - 1;

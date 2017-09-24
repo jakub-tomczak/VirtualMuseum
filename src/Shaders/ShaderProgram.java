@@ -2,7 +2,6 @@ package Shaders;
 
 import Utils.Constants;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
@@ -46,10 +45,10 @@ public abstract class ShaderProgram {
         GL20.glValidateProgram(programID);
 
 
-        getAlUniformLocations();
+        getAllUniformLocations();
     }
 
-    protected abstract void getAlUniformLocations();
+    protected abstract void getAllUniformLocations();
 
     protected int getUniformLocation(String uniformName) {
         return GL20.glGetUniformLocation(programID, uniformName);

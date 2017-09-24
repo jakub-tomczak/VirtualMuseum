@@ -2,18 +2,21 @@ package Main;
 
 import Models.Model;
 import Models.ModelsRenderer;
+import Camera.Camera;
 import Shaders.Shader;
+import Texturing.Texture;
 import Utils.ApplicationEventsManager;
 import Utils.Constants;
 import Utils.DisplayManager;
 import Utils.ObjectLoader;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector3f;
 
+import static Utils.Constants.DEBUG;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main {
-    private static final boolean DEBUG = false;
 
 
     public static void main(String[] args) {
@@ -29,112 +32,83 @@ public class Main {
     }
 
     public Main() {
-        Utils.DisplayManager displayManager = new DisplayManager();
 
+        Utils.DisplayManager displayManager = new DisplayManager();
 
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
-        float[] vertices2 =
-                {
-                        0.100000f, -1.000000f, -1.000000f
-                        , 0.100000f, -1.000000f, 1.000000f
-                        , -0.100000f, -1.000000f, 1.000000f
-                        , -0.100000f, -1.000000f, -1.000000f
-                        , 0.100000f, 1.000000f, -0.999999f
-                        , 0.100000f, 1.000000f, 1.000001f
-                        , -0.100000f, 1.000000f, 1.000000f
-                        , -0.100000f, 1.000000f, -1.000000f
-                };
-
-        float[] vertices3 =
-                {
-
-                        .5f, .5f, .5f,
-                        .5f, .5f, -.5f,
-                        -.5f, .5f, -.5f,
-                        -.5f, .5f, .5f,
-
-                        .5f, -.5f, .5f,
-                        .5f, -.5f, -.5f,
-                        -.5f, -.5f, -.5f,
-                        -.5f, -.5f, .5f
-                };
-
-        int []indices3 =
-                {
-                        0,1,2,
-                        2,3,0,
-                        0,5,1,
-                        1,5,2,
-                        2,5,6,
-                        6,2,3,
-                        3,6,7,
-                        7,3,0,
-                        0,7,4,
-                        4,0,5,
-                        5,6,4,
-                        4,6,7
-
-                };
-
-        float[] vertices = {
-                -1f, 1f, 0f,
-                -1f, -1f, 0f,
-                1f, -1f, 0f,
-                1f, 1f, 0f,
-        };
-        int[] indices2 =
-                {
-                        0, 2, 3,
-                        4, 6, 5, 4, 1,
-                        0, 1, 6,
-                        2, 6, 3,
-                        2, 0, 7,
-                        4, 0, 1,
-                        2, 4, 7,
-                        6, 4, 5,
-                        1, 1, 5,
-                        6, 6, 7,
-                        3, 0, 3,
-                        7
-                };
-
-        int[] indices = {
-                0, 1, 3,
-                3, 1, 2
-        };
+        Camera mainCamera = new Camera();
         ModelsRenderer renderer = new ModelsRenderer();
-        Shader shader = new Shader("vertexShader", "fragmentShader");
+        renderer.useCamera(mainCamera);
+        Shader shader1 = new Shader("v_textured", "f_textured");
 
 
-        Model model = new Model(vertices3, indices3);//new Model("szescian2"); //
+        //TODO:
+        //projectionMatrix bindować do zmiennej jednorodnej tylko raz
 
-        renderer.addModelsToRender(model);
+        //będzie kilka obrazów, więc aby nie ładować za każdym razem modelu lepiej przerzucić dane
+        //albo podpiąć się pod ten sam vao
 
+        //shader jest przypisywany do modelu
+        //w renderer.renderModels jest wywyoływane startUsingShader i stopUsingShader
+        //każdy obiekt 3D to instancja klasy Model
+        //posiada ona ModelData - do przechowywania informacji o wierzchołkach
+        //ModelTransformation - do przechowywania informacji o transformacji obiektu
+        //Shader - do przechowywania informacji o shaderze
+        Texture texture = Texture.loadTexture("bohomaz", 0);
+        Texture texture1 = Texture.loadTexture("bohomaz2", 0);
+        Model model1 = new Model("dragon", shader1, texture);
+        Model model2 = new Model("szescian2", shader1, texture1);
+        //zmiana położenia oraz rotacji modelu
+        model1.modelTransformation.changePosition(new Vector3f(.5f, .5f, -1f));
+        model1.modelTransformation.changeRotation(new Vector3f(1, 1, 1));         //obroty sa podawane w kątach, podczas tworzenia macierzy transformacji są przeliczane na radiany
+        model1.modelTransformation.changeScale(new Vector3f(.25f, .25f, .25f));
 
-        if (DEBUG) {
-            SystemInfo();
-        }
+        //wystarczy ustawić dla jednego modelu używającego tego samego shadera - chyba
+        model2.loadProjectionMatrix(renderer.getProjectionMatrix());
+
+        model2.modelTransformation.changePosition(new Vector3f(-.5f, -.5f, 0f));
+
+        //dopisz model do listy modeli które sa renderowane w każdej klatce
+        // renderer.addModelsToRender(model);
+        renderer.addModelsToRender(model1);
+        renderer.addModelsToRender(model2);
+
 
         while (!Display.isCloseRequested()) {
-            shader.startUsingShader();
 
             prepare();
             renderer.renderModels();
             displayManager.update();
 
 
-            shader.stopUsingShader();
+
+            model2.modelTransformation.changePosition(
+                    new Vector3f(model2.modelTransformation.getPosition().x,
+                            model2.modelTransformation.getPosition().y,
+                            model2.modelTransformation.getPosition().z - .1f
+                    )
+            );
+            model1.modelTransformation.changePosition(
+                    new Vector3f(model1.modelTransformation.getPosition().x,
+                            model1.modelTransformation.getPosition().y,
+                            model1.modelTransformation.getPosition().z - .1f
+                    )
+            );
+            model2.modelTransformation.rotate(new Vector3f(3,3,3));
+
         }
 
 
         ApplicationEventsManager.getInstance().onApplicationEnded();
         displayManager.destroy();
+        Texture.clearTextures();
 
     }
 
     public void prepare() {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glClearColor(Constants.BACKGROUND_COLOR.x, Constants.BACKGROUND_COLOR.y, Constants.BACKGROUND_COLOR.z, Constants.BACKGROUND_COLOR.w);
     }
 

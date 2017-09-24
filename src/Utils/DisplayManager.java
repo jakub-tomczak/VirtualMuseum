@@ -1,11 +1,7 @@
 package Utils;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.ContextAttribs;
-import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.PixelFormat;
-
-import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.*;
 
 public class DisplayManager {
     private static final int WIDTH = 1280;
@@ -25,6 +21,8 @@ public class DisplayManager {
             Display.setTitle(windowsTitle);
 
             org.lwjgl.opengl.Display.create(new PixelFormat(), contextAttribs);
+
+            GL11.glViewport(0,0, WIDTH, HEIGHT);
             initailized = true;
         } catch (LWJGLException e) {
             e.printStackTrace();

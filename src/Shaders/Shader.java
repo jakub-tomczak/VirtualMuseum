@@ -1,33 +1,48 @@
 package Shaders;
 
+import Camera.Camera;
 import Interfaces.IApplicationEvents;
 import Utils.ApplicationEventsManager;
+import Utils.MathUtils;
 import org.lwjgl.util.vector.Matrix4f;
 
-public class Shader extends ShaderProgram implements IApplicationEvents{
+public class Shader extends ShaderProgram implements IApplicationEvents {
 
-    private int transformationMatrixLocaiton ;
+    private int transformationMatrixLocation;
+    private int projectionMatrixLocation;
+    private int viewMatrixLocation;
 
-    public Shader(String vertexShaderFileName, String fragmentShaderFileName)
-    {
+    public Shader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
         ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }
 
     //ładuje macierz transformacji do zmiennej uniform
-    public void loadTransformationLocation(Matrix4f matrix4f)
+    public void loadTransformationLocation(Matrix4f matrix4f) {
+        super.loadMat4f(transformationMatrixLocation, matrix4f);
+    }
+
+    public void loadProjectionMatix(Matrix4f projectionMatrix)
     {
-        super.loadMat4f(transformationMatrixLocaiton ,matrix4f);
+        super.loadMat4f(projectionMatrixLocation, projectionMatrix);
+    }
+    public void loadViewMatrix(Matrix4f viewMatrix)
+    {
+        super.loadMat4f(viewMatrixLocation, viewMatrix);
     }
 
     @Override
-    protected void getAlUniformLocations() {
-       transformationMatrixLocaiton = super.getUniformLocation("transformationMatrx");
+    protected void getAllUniformLocations() {
+        transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
+        projectionMatrixLocation = super.getUniformLocation("projectionMatrix");
+        viewMatrixLocation = super.getUniformLocation("viewMatrix");
     }
+
 
     @Override
     protected void bindAttributes() {
-        super.bindAttribute(0, "position");
+        bindAttribute(0, "v_position");
+        bindAttribute(1, "v_textureCoords");
     }
 
     @Override
