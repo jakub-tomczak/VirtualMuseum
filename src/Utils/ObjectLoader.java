@@ -17,8 +17,8 @@ public class ObjectLoader {
     }
 
     public static ModelData loadModel(String fileName, FacesMode facesMode) {
-        if(facesMode == FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices)
-            throw new RuntimeException("Facesmode VertexNormalIndicesWithoutTextureCoordinateIndices is not supported");
+      //  if(facesMode == FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices)
+      //      throw new RuntimeException("Facesmode VertexNormalIndicesWithoutTextureCoordinateIndices is not supported");
         FileReader fileReader;
         try {
             fileReader = new FileReader(new File(Constants.MODELS_PATH + fileName + ".obj"));
@@ -169,9 +169,10 @@ public class ObjectLoader {
             texCoordsArray[vertexIndex * 2 + 1] = 1 - currentTex.y;  //openGL zaczyna od top-left, blender od bottom-left
 
         }
+        int index = facesMode == FacesMode.VertexNormalIndices ? 2 : 1;
 
         //przepisz vector3f do tablicy
-        Vector3f currentNorm = normals.get(Integer.parseInt(data[2]) - 1);
+        Vector3f currentNorm = normals.get(Integer.parseInt(data[index]) - 1);
         normalsArray[vertexIndex * 3] = currentNorm.x;
         normalsArray[vertexIndex * 3 + 1] = currentNorm.y;
         normalsArray[vertexIndex * 3 + 2] = currentNorm.z;

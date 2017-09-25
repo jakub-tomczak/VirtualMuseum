@@ -44,6 +44,12 @@ public class MathUtils {
 
     }
 
+    public void metoda()
+    {
+
+        System.out.println("dziala");
+    }
+
     public static Matrix4f createViewMatrix(Camera camera)
     {
         Matrix4f viewMatrix = new Matrix4f();
