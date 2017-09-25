@@ -1,0 +1,13 @@
+#version 400 core
+
+in vec2 f_textureCoord;
+
+out vec4 out_Color;
+
+uniform sampler2D texture_diff; //nowa zmianna jednorodna
+
+
+void main(void)
+{
+    out_Color = texture(texture_diff, f_textureCoord);  //zwraca kolor tekstury na podanych wspolrzedych
+}

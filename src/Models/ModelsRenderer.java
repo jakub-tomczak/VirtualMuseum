@@ -14,6 +14,8 @@ import java.util.List;
 
 public class ModelsRenderer {
     Camera mainCamera = new Camera();
+
+
     public ModelsRenderer()
     {
         projectionMatrix = MathUtils.createProjectionMatrix();
@@ -32,12 +34,16 @@ public class ModelsRenderer {
     }
 
     public void addModelsToRender(Model modelToRender) {
-        if(!modelsToRender.contains(modelToRender))
-        {
+        if (!modelsToRender.contains(modelToRender)) {
             modelsToRender.add(modelToRender);
         }
     }
 
+
+    public void renderTerrain(Model terrainModel)
+    {
+
+    }
 
     public void renderModels() {
         //sprawdza jaki klawisz został wciśnięty

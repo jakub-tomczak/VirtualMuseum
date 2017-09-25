@@ -31,13 +31,21 @@ public class Model {
                 new Vector3f(.5f,.5f,.5f));   //skala
     }
 
+    public Model(Shader shader, Texture texture)
+    {
+        this();
+        this.modelShader = shader;
+        this.modelTexture = texture;
+    }
+
+
 
     //to się przyda do ładowania modeli z pliku,
     //wystarczy podać nazwę pliku, który jest w folderze modelsData, bez rozszerzenia
-    public Model(String filename, Shader shader, Texture texture)
+    public Model(String filename, Shader shader, Texture texture, ObjectLoader.FacesMode facesMode)
     {
         this();
-        ModelData modelData = ObjectLoader.loadModel(filename, ObjectLoader.FacesMode.VertexNormalIndices); //to facesMode niech zostanie
+        ModelData modelData = ObjectLoader.loadModel(filename, facesMode); //to facesMode niech zostanie
         //załadowanie obiektu z wierzchołkami, normlanymi i współrzędnymi teksturowania
         this.data = modelData;
         this.modelTexture = texture; //przypisanie do vao jest wczesnije

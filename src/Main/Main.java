@@ -57,8 +57,8 @@ public class Main {
         //Shader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
-        Model model1 = new Model("szescian2", shader1, texture);
-        Model model2 = new Model("szescian2", shader1, texture1);
+        Model model1 = new Model("szescian2", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model model2 = new Model("szescian2", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
         //zmiana położenia oraz rotacji modelu
         model1.modelTransformation.changePosition(new Vector3f(.5f, .5f, -1f));
         model1.modelTransformation.changeRotation(new Vector3f(1, 1, 1));         //obroty sa podawane w kątach, podczas tworzenia macierzy transformacji są przeliczane na radiany
