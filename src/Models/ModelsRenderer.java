@@ -1,7 +1,7 @@
 package Models;
 
 import Camera.Camera;
-import Light.Light;
+import Light.*;
 import Utils.MathUtils;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ModelsRenderer {
     Camera mainCamera = new Camera();
-    Light testLight = new Light(new Vector3f(2,10,5),new Vector3f(1,1,1)); // pozycja i kolor
+    LightHandler Lights = new LightHandler();
 
 
     public ModelsRenderer()
@@ -69,10 +69,11 @@ public class ModelsRenderer {
             model.loadTransformationMatrix();
 
             model.loadViewMatrix(mainCamera.getViewMatrix());
-            model.loadLight(testLight);
+           // model.loadLight(testLight);
+            this.Lights.addLight(model);
 
             //model.modelTransformation.increasePosition();
-            model.modelTransformation.rotate();
+                model.modelTransformation.rotate();
 
             //GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
             GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
@@ -90,6 +91,6 @@ public class ModelsRenderer {
         this.mainCamera = mainCamera;
     }
 
-    public void useLight(Light testLight) {this.testLight=testLight;}
+    public void useLight(LightHandler lightArray) {this.Lights=lightArray;}
     }
 

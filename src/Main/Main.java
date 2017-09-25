@@ -1,7 +1,7 @@
 package Main;
 
 import Models.Model;
-import Light.Light;
+import Light.*;
 import Models.ModelsRenderer;
 import Shaders.Shader;
 import Texturing.Texture;
@@ -39,11 +39,12 @@ public class Main {
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
         Camera mainCamera = new Camera();
-        Light testLight = new Light(new Vector3f(2,5,10),new Vector3f(1,1,1)); // pozycja i kolor
-
+        LightHandler lights= new LightHandler();
+        lights.addLight(new Light(new Vector3f(2,5,0),new Vector3f(1,1,1))); // pozycja i kolor
+        lights.addLight(new Light(new Vector3f(0,-5,-5),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
-        renderer.useLight(testLight);
+        renderer.useLight(lights);
         Shader shader1 = new Shader("v_textured", "f_textured");
 
 
