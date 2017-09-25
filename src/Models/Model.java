@@ -1,6 +1,7 @@
 package Models;
 
 import Shaders.Shader;
+import Light.Light;
 import Shaders.ShaderProgram;
 import Texturing.Texture;
 import Utils.Constants;
@@ -100,6 +101,11 @@ public class Model {
     public void loadViewMatrix(Matrix4f viewMatrix)
     {
         modelShader.loadViewMatrix(viewMatrix);
+    }
+
+    public void loadLight(Light light)
+    {
+        modelShader.loadLight(light);
     }
 
 

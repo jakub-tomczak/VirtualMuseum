@@ -1,6 +1,7 @@
 package Shaders;
 
 import Camera.Camera;
+import Light.Light;
 import Interfaces.IApplicationEvents;
 import Utils.ApplicationEventsManager;
 import Utils.MathUtils;
@@ -11,6 +12,8 @@ public class Shader extends ShaderProgram implements IApplicationEvents {
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
+    private int lightPositionLocation;
+    private int lightColorLocation;
 
     public Shader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
@@ -30,12 +33,19 @@ public class Shader extends ShaderProgram implements IApplicationEvents {
     {
         super.loadMat4f(viewMatrixLocation, viewMatrix);
     }
+    public void loadLight(Light light)
+    {
+        super.loadVec3f(lightPositionLocation,light.getPosition());
+        super.loadVec3f(lightColorLocation,light.getColor());
+    }
 
     @Override
     protected void getAllUniformLocations() {
         transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
         projectionMatrixLocation = super.getUniformLocation("projectionMatrix");
         viewMatrixLocation = super.getUniformLocation("viewMatrix");
+        lightPositionLocation = super.getUniformLocation("lightPosition");
+        lightColorLocation = super.getUniformLocation("lightColor");
     }
 
 
@@ -43,6 +53,7 @@ public class Shader extends ShaderProgram implements IApplicationEvents {
     protected void bindAttributes() {
         bindAttribute(0, "v_position");
         bindAttribute(1, "v_textureCoords");
+        bindAttribute(2, "normal");
     }
 
     @Override

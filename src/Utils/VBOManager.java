@@ -44,6 +44,7 @@ public class VBOManager implements IApplicationEvents {
         putDataToVBO(0, 3, model.getData().getVertices());
         if (model.modelTexture != null)
             putDataToVBO(1, 2, model.getData().getTexCoords());
+        putDataToVBO(2,3,model.getData().getNormals());
         destroyVAO();
     }
 
