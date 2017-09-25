@@ -49,6 +49,8 @@ public class MathUtils {
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();
         Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0,1,0),viewMatrix, viewMatrix);
+        Matrix4f.rotate((float) Math.toRadians(camera.getRoll()), new Vector3f(0,1,0),viewMatrix, viewMatrix);
+        Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1,0,0),viewMatrix, viewMatrix);
         Vector3f cameraPosition = camera.getPosition();
         //poruszamy świat w odwrotnym kierunku
         cameraPosition = new Vector3f(-1f * camera.getPosition().x, -1f * camera.getPosition().y, -1f * camera.getPosition().z);

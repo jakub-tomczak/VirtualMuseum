@@ -56,8 +56,8 @@ public class Main {
         //ModelTransformation - do przechowywania informacji o transformacji obiektu
         //Shader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
-        Texture texture1 = Texture.loadTexture("bohomaz2", 0);
-        Model model1 = new Model("dragon", shader1, texture);
+        Texture texture1 = Texture.loadTexture("bohomaz", 0);
+        Model model1 = new Model("szescian2", shader1, texture);
         Model model2 = new Model("szescian2", shader1, texture1);
         //zmiana położenia oraz rotacji modelu
         model1.modelTransformation.changePosition(new Vector3f(.5f, .5f, -1f));
@@ -83,7 +83,7 @@ public class Main {
 
 
 
-            model2.modelTransformation.changePosition(
+          /*  model2.modelTransformation.changePosition(
                     new Vector3f(model2.modelTransformation.getPosition().x,
                             model2.modelTransformation.getPosition().y,
                             model2.modelTransformation.getPosition().z - .1f
@@ -94,7 +94,7 @@ public class Main {
                             model1.modelTransformation.getPosition().y,
                             model1.modelTransformation.getPosition().z - .1f
                     )
-            );
+            );*/
             model2.modelTransformation.rotate(new Vector3f(3,3,3));
 
         }
