@@ -50,17 +50,16 @@ public class MathUtils {
         System.out.println("dziala");
     }
 
-    public static Matrix4f createViewMatrix(Camera camera)
-    {
+    public static Matrix4f createViewMatrix(Camera camera){
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();
-        Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0,1,0),viewMatrix, viewMatrix);
-        Matrix4f.rotate((float) Math.toRadians(camera.getRoll()), new Vector3f(0,1,0),viewMatrix, viewMatrix);
-        Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1,0,0),viewMatrix, viewMatrix);
-        Vector3f cameraPosition = camera.getPosition();
-        //poruszamy świat w odwrotnym kierunku
-        cameraPosition = new Vector3f(-1f * camera.getPosition().x, -1f * camera.getPosition().y, -1f * camera.getPosition().z);
-        Matrix4f.translate(cameraPosition, viewMatrix, viewMatrix);
+        Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1,0,0), viewMatrix,
+                viewMatrix);
+        Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0,1,0), viewMatrix,
+                viewMatrix);
+        Vector3f cameraPos = camera.getPosition();
+        Vector3f negativeCameraPos = new Vector3f(-cameraPos.x,-cameraPos.y,-cameraPos.z);
+        Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
         return viewMatrix;
     }
 }
