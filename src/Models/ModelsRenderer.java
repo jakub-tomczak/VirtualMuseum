@@ -70,7 +70,7 @@ public class ModelsRenderer {
 
             model.loadViewMatrix(mainCamera.getViewMatrix());
            // model.loadLight(testLight);
-            this.Lights.addLight(model);
+            this.Lights.turnOnLight(model);
 
             //model.modelTransformation.increasePosition();
                 model.modelTransformation.rotate();

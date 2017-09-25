@@ -13,7 +13,7 @@ public class LightHandler {
         lightArray.add(light);
     }
 
-    public void addLight(Model m)
+    public void turnOnLight(Model m)
     {
         for(Light l : lightArray)
         {
