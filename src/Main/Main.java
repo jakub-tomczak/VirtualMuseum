@@ -74,30 +74,35 @@ public class Main {
 
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
-        column.modelTransformation.changePosition(new Vector3f(1,0,1));
+        column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
+        column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(column);
 
         //smok
         Model dragon = new Model("dragon", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
         dragon.modelTransformation.changeScale(new Vector3f(.05f,.05f,.05f));
-        dragon.modelTransformation.changePosition(new Vector3f(2,0,2));
+        dragon.modelTransformation.changePosition(new Vector3f(2,.4f,2));
         renderer.addModelsToRender(dragon);
 
+        //instalacja
+        Model artObject = new Model("instalacja", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        artObject.modelTransformation.changeScale(new Vector3f(.08f,.08f,.08f));
+        artObject.modelTransformation.changePosition(new Vector3f(4,.4f,4));
+        renderer.addModelsToRender(artObject);
 
         //sciany
         Texture wallTexture = Texture.loadTexture("wallBricksLowRes", 0);
         Model wall0 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall0.modelTransformation.changePosition(new Vector3f(0,0,3.5f));
-        Model wall1 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall1.modelTransformation.changePosition(new Vector3f(3.5f,0,0));
-        wall1.modelTransformation.changeRotation(new Vector3f(0, 90, 0));
+        wall0.modelTransformation.changePosition(new Vector3f(0.1f,0,5f));
+
+        Model wall1 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall1.modelTransformation.changePosition(new Vector3f(5f,.2f,0));
 
         Model wall2 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall2.modelTransformation.changePosition(new Vector3f(7f,0,3.5f));
+        wall2.modelTransformation.changePosition(new Vector3f(9.9f,.2f,5f));
 
-        Model wall3 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall3.modelTransformation.changePosition(new Vector3f(3.5f,0,7f));
-        wall3.modelTransformation.changeRotation(new Vector3f(0, 90, 0));
+        Model wall3 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall3.modelTransformation.changePosition(new Vector3f(5f,0,10f));
 
         renderer.addModelsToRender(wall0);
         renderer.addModelsToRender(wall1);
@@ -113,8 +118,6 @@ public class Main {
         //wystarczy ustawić dla jednego modelu używającego tego samego shadera - chyba
         dragon.loadProjectionMatrix(renderer.getProjectionMatrix());
 
-        dragon.modelTransformation.changePosition(new Vector3f(5f, 0f, 0f));
-
         //dopisz model do listy modeli które sa renderowane w każdej klatce
         // renderer.addModelsToRender(model);
 
@@ -128,7 +131,7 @@ public class Main {
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
-        terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,-.1f,0));
+        terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
 
 
         while (!Display.isCloseRequested()) {
@@ -151,8 +154,8 @@ public class Main {
                             model1.modelTransformation.getPosition().y,
                             model1.modelTransformation.getPosition().z - .1f
                     )
-            );
-            model2.modelTransformation.rotate(new Vector3f(3,3,3));*/
+            );*/
+            artObject.modelTransformation.rotate(new Vector3f(0,10,0));
 
         }
 
