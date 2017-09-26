@@ -73,6 +73,7 @@ public class Main {
         Texture texture2 = Texture.loadTexture("marble3", 0);
         Texture texture3 = Texture.loadTexture("frameWood", 0);
         Texture texture4 = Texture.loadTexture("dama", 0);
+        Texture texture5 = Texture.loadTexture("rejtan", 0);
         texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
 
@@ -107,7 +108,7 @@ public class Main {
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
-        //ramka
+        //ramka damy
         Model frame = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
         frame.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,4f));
         frame.modelTransformation.changeScale(new Vector3f(.4f, .4f, 0.3f));
@@ -120,6 +121,20 @@ public class Main {
         lady.modelTransformation.changeScale(new Vector3f(.28f, .4f, .3f));
         lady.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(lady);
+
+        //ramka rejtana
+        Model frame2 = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        frame2.modelTransformation.changePosition(new Vector3f(9.75f,1.5f,7f));
+        frame2.modelTransformation.changeScale(new Vector3f(.4f, .6f, 0.45f));
+        frame2.modelTransformation.rotate(new Vector3f(90,180,0));
+        renderer.addModelsToRender(frame2);
+
+        //rejtan
+        Model rejtan = new Model("rejtan", shader1, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
+        rejtan.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,7f));
+        rejtan.modelTransformation.changeScale(new Vector3f(.28f, .4f, .35f));
+       // rejtan.modelTransformation.rotate(new Vector3f(0,28,180));
+        renderer.addModelsToRender(rejtan);
 
 
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
