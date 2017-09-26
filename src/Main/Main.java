@@ -130,8 +130,8 @@ public class Main {
         */
 
         //dawid
-        Model dawid = new Model("david3", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
-        dawid.modelTransformation.changePosition(new Vector3f(5f,.2f,5f));
+        Model dawid = new Model("david6", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        dawid.modelTransformation.changePosition(new Vector3f(5f,1.15f,5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
@@ -226,7 +226,7 @@ public class Main {
             );*/
 
           artObject.modelTransformation.rotate(new Vector3f(0,2,0));
-          dawid.modelTransformation.rotate(new Vector3f(0,1,0));
+          dawid.modelTransformation.rotate(new Vector3f(0,2,0));
 
         }
 
