@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelsRenderer {
-    Camera mainCamera = new Camera();
+    Camera mainCamera;
     List<Light>LightHandler = new ArrayList<Light>();
 
 

@@ -42,7 +42,8 @@ public class Main {
 
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
-        Camera mainCamera = new Camera();
+        Camera mainCamera = new Camera(new Vector3f(5,1,5));
+
         List<Light>lights = new ArrayList<Light>();
         lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
         lights.add(new Light(new Vector3f(20,0,0),new Vector3f(1,1,1)));
@@ -70,33 +71,64 @@ public class Main {
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
         texture1.setReflectivity(5);
         texture1.setCameraReflectDistance(5);
-        Model model1 = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
-        Model model2 = new Model("paintingTextured", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
+
+        //kolumna
+        Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        column.modelTransformation.changePosition(new Vector3f(1,0,1));
+        renderer.addModelsToRender(column);
+
+        //smok
+        Model dragon = new Model("dragon", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
+        dragon.modelTransformation.changeScale(new Vector3f(.05f,.05f,.05f));
+        dragon.modelTransformation.changePosition(new Vector3f(2,0,2));
+        renderer.addModelsToRender(dragon);
+
+
+        //sciany
+        Texture wallTexture = Texture.loadTexture("wallBricksLowRes", 0);
+        Model wall0 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall0.modelTransformation.changePosition(new Vector3f(0,0,3.5f));
+        Model wall1 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall1.modelTransformation.changePosition(new Vector3f(3.5f,0,0));
+        wall1.modelTransformation.changeRotation(new Vector3f(0, 90, 0));
+
+        Model wall2 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall2.modelTransformation.changePosition(new Vector3f(7f,0,3.5f));
+
+        Model wall3 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        wall3.modelTransformation.changePosition(new Vector3f(3.5f,0,7f));
+        wall3.modelTransformation.changeRotation(new Vector3f(0, 90, 0));
+
+        renderer.addModelsToRender(wall0);
+        renderer.addModelsToRender(wall1);
+        renderer.addModelsToRender(wall2);
+        renderer.addModelsToRender(wall3);
+
+
         //zmiana położenia oraz rotacji modelu
        /* model1.modelTransformation.changePosition(new Vector3f(.5f, .5f, -1f));
         model1.modelTransformation.changeRotation(new Vector3f(1, 1, 1));         //obroty sa podawane w kątach, podczas tworzenia macierzy transformacji są przeliczane na radiany
         model1.modelTransformation.changeScale(new Vector3f(.25f, .25f, .25f));*/
 
         //wystarczy ustawić dla jednego modelu używającego tego samego shadera - chyba
-        model2.loadProjectionMatrix(renderer.getProjectionMatrix());
+        dragon.loadProjectionMatrix(renderer.getProjectionMatrix());
 
-        model2.modelTransformation.changePosition(new Vector3f(5f, 0f, 0f));
+        dragon.modelTransformation.changePosition(new Vector3f(5f, 0f, 0f));
 
         //dopisz model do listy modeli które sa renderowane w każdej klatce
         // renderer.addModelsToRender(model);
-        renderer.addModelsToRender(model1);
-        renderer.addModelsToRender(model2);
 
 
         Mouse.setGrabbed(true);
 
+        //podłoga
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
         terrainTexture.setCameraReflectDistance(100);
         terrainTexture.setReflectivity(100);
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
-        terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,-2f,0));
+        terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,-.1f,0));
 
 
         while (!Display.isCloseRequested()) {

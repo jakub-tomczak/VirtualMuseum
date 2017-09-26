@@ -15,9 +15,12 @@ public class Camera {
     private float moveSpeed=0.1f;
     private float sensitivity = 0.3f;
     private Matrix4f viewMatrix;
-    public Camera() {
-        position = new Vector3f(0,0,0);
+    public Camera(Vector3f initialPosition)
+    {
+        position = initialPosition;
+        height = position.y;
         viewMatrix = MathUtils.createViewMatrix(this);
+
 
     }
 
@@ -31,26 +34,36 @@ public class Camera {
         position.x += distance * (float) Math.sin(Math.toRadians(yaw));
         position.z -= distance * (float) Math.cos(Math.toRadians(yaw));
         angle+= angleDiff;
-        position.y = height * (float) Math.sin(Math.toRadians(angle)) * walkFactor;
-
+        humanWalk();
     }
 
     public void walkBackwards(float distance) {
         position.x -= distance * (float) Math.sin(Math.toRadians(yaw));
         position.z += distance * (float) Math.cos(Math.toRadians(yaw));
         angle-= angleDiff;
-        position.y = height * (float) Math.sin(Math.toRadians(angle)) * walkFactor;
-
+        humanWalk();
     }
 
     public void walkLeft(float distance) {
         position.x -= distance * (float) Math.sin(Math.toRadians(yaw - 90));
         position.z += distance * (float) Math.cos(Math.toRadians(yaw - 90));
+
+        angle-= angleDiff;
+        humanWalk();
+
     }
 
     public void walkRight(float distance) {
         position.x -= distance * (float) Math.sin(Math.toRadians(yaw + 90));
         position.z += distance * (float) Math.cos(Math.toRadians(yaw + 90));
+
+        angle+= angleDiff;
+        humanWalk();
+    }
+
+    private void humanWalk()
+    {
+        position.y = height + height * (float) Math.cos(Math.toRadians(angle)) * walkFactor;
     }
 
     //wywoływane co ramkę
