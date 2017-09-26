@@ -70,6 +70,8 @@ public class Main {
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
         Texture texture2 = Texture.loadTexture("marble3", 0);
+        Texture texture3 = Texture.loadTexture("frameWood", 0);
+        Texture texture4 = Texture.loadTexture("dama", 0);
         texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
 
@@ -97,6 +99,20 @@ public class Main {
         dawid.modelTransformation.changePosition(new Vector3f(9.5f,.2f,.5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
+
+        //ramka
+        Model frame = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        frame.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,4f));
+        frame.modelTransformation.changeScale(new Vector3f(.4f, .4f, 0.3f));
+        frame.modelTransformation.rotate(new Vector3f(0,180,1));
+        renderer.addModelsToRender(frame);
+
+        //dama z gronostajem
+        Model lady = new Model("dama", shader1, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
+        lady.modelTransformation.changePosition(new Vector3f(9.48f,2.35f,4.18f));
+        lady.modelTransformation.changeScale(new Vector3f(.28f, .4f, .3f));
+        lady.modelTransformation.rotate(new Vector3f(0,28,180));
+        renderer.addModelsToRender(lady);
 
 
 
