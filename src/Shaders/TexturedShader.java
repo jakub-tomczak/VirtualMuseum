@@ -17,6 +17,8 @@ public class TexturedShader extends ShaderProgram implements IApplicationEvents 
     private int viewMatrixLocation;
     private int lightPositionLocation[];
     private int lightColorLocation[];
+    private int cameraReflectionLocation;
+    private int reflectivityLocation;
 
 
     public TexturedShader(String vertexShaderFileName, String fragmentShaderFileName) {
@@ -53,6 +55,11 @@ public class TexturedShader extends ShaderProgram implements IApplicationEvents 
             }
         }
     }
+    public void loadShineVariables(float cameraLight,float reflectivity)
+    {
+        super.loadFloat(cameraReflectionLocation,cameraLight);
+        super.loadFloat(reflectivityLocation,reflectivity);
+    }
 
     @Override
     protected void getAllUniformLocations() {
@@ -67,6 +74,8 @@ public class TexturedShader extends ShaderProgram implements IApplicationEvents 
             lightColorLocation[i]=super.getUniformLocation("lightColor[" + i + "]");
 
         }
+        cameraReflectionLocation=super.getUniformLocation("cameraReflection");
+        reflectivityLocation=super.getUniformLocation("reflectivity");
     }
 
 

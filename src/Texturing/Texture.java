@@ -22,7 +22,26 @@ public class Texture{
     private int width;
     private int height;
     private int texID;
+    private int cameraReflection=1;
+    private int reflectivity=0;
     private int textureBank;
+
+    public int getCameraReflectDistance() {
+        return cameraReflection;
+    }
+
+    public void setCameraReflectDistance(int cameraReflectDistance) {
+        this.cameraReflection = cameraReflectDistance;
+    }
+
+    public int getReflectivity() {
+        return reflectivity;
+    }
+
+    public void setReflectivity(int reflectivity) {
+        this.reflectivity = reflectivity;
+    }
+
     private ByteBuffer imageBuffer;
 
     private static List<Integer> textures = new ArrayList<>();

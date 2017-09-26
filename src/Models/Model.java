@@ -61,6 +61,7 @@ public class Model {
         if(modelTexture != null)
         {
             modelTexture.setTextureActive();
+            modelShader.loadShineVariables(modelTexture.getCameraReflectDistance(),modelTexture.getReflectivity());
         }else
         {
             System.out.println("model texturer jest pusty!");

@@ -171,5 +171,7 @@ public abstract class ShaderProgram {
 
     public abstract void loadLights(List<Light> lights);
 
+    public abstract void loadShineVariables(float cameraLight,float reflectivity);
+
     public abstract void loadTransformationLocation(Matrix4f tansformationMatrix);
 }

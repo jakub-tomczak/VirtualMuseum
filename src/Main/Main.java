@@ -47,7 +47,7 @@ public class Main {
         lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
         lights.add(new Light(new Vector3f(20,0,0),new Vector3f(1,1,1)));
         lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
-     //   lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
+        lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
@@ -68,6 +68,8 @@ public class Main {
         //TexturedShader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
+        texture1.setReflectivity(5);
+        texture1.setCameraReflectDistance(5);
         Model model1 = new Model("instalacja", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
         Model model2 = new Model("szescian2", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
         //zmiana położenia oraz rotacji modelu
@@ -89,6 +91,8 @@ public class Main {
         Mouse.setGrabbed(true);
 
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
+        terrainTexture.setCameraReflectDistance(100);
+        terrainTexture.setReflectivity(100);
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());

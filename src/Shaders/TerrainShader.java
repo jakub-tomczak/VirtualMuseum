@@ -16,6 +16,8 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
     private int viewMatrixLocation;
     private int lightPositionLocation[];
     private int lightColorLocation[];
+    private int cameraReflectionLocation;
+    private int reflectivityLocation;
 
     public TerrainShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
@@ -53,7 +55,12 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
             }
         }
     }
-
+    @Override
+    public void loadShineVariables(float cameraLight,float reflectivity)
+    {
+        super.loadFloat(cameraReflectionLocation,cameraLight);
+        super.loadFloat(reflectivityLocation,reflectivity);
+    }
     @Override
     protected void getAllUniformLocations() {
         transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
@@ -67,6 +74,8 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
             lightColorLocation[i]=super.getUniformLocation("lightColor[" + i + "]");
 
         }
+        cameraReflectionLocation=super.getUniformLocation("cameraReflection");
+        reflectivityLocation=super.getUniformLocation("reflectivity");
 
     }
 
