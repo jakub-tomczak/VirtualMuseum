@@ -22,11 +22,11 @@ public class Texture{
     private int width;
     private int height;
     private int texID;
-    private int cameraReflection=1;
-    private int reflectivity=0;
+    private float cameraReflection=1;
+    private float reflectivity=0;
     private int textureBank;
 
-    public int getCameraReflectDistance() {
+    public float getCameraReflectDistance() {
         return cameraReflection;
     }
 
@@ -34,11 +34,11 @@ public class Texture{
         this.cameraReflection = cameraReflectDistance;
     }
 
-    public int getReflectivity() {
+    public float getReflectivity() {
         return reflectivity;
     }
 
-    public void setReflectivity(int reflectivity) {
+    public void setReflectivity(float reflectivity) {
         this.reflectivity = reflectivity;
     }
 
