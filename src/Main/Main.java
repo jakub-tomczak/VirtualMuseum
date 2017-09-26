@@ -108,9 +108,30 @@ public class Main {
         dragon.modelTransformation.rotate(new Vector3f(0,0,0));
         renderer.addModelsToRender(dragon);
 
+        //lampy
+        for(int i=0;i<2;i++)
+        {
+            for(int j=0;j<2;j++)
+            {
+                Texture lampTexture = Texture.loadTexture("simple2", 0);
+                Model lamp = new Model("lamp", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+                lamp.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,2f,2.5f + j*5f));
+                renderer.addModelsToRender(lamp);
+
+            }
+        }
+
+
+        //lampa
+      /*  Texture lampTexture = Texture.loadTexture("simple2", 0);
+        Model lamp = new Model("lamp2", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        lamp.modelTransformation.changePosition(new Vector3f(2.5f,5f,2.5f));
+        renderer.addModelsToRender(lamp);
+        */
+
         //dawid
         Model dawid = new Model("david3", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
-        dawid.modelTransformation.changePosition(new Vector3f(9.5f,.2f,.5f));
+        dawid.modelTransformation.changePosition(new Vector3f(5f,.2f,5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
