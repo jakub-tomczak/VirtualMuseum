@@ -157,7 +157,6 @@ public class Main {
                             model1.modelTransformation.getPosition().z - .1f
                     )
             );*/
-            artObject.modelTransformation.rotate(new Vector3f(0,10,0));
 
         }
 
