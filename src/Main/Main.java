@@ -69,8 +69,9 @@ public class Main {
         //TexturedShader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
-        texture1.setReflectivity(5);
-        texture1.setCameraReflectDistance(5);
+        Texture texture2 = Texture.loadTexture("marbletexture", 0);
+        texture1.setReflectivity(1);
+        texture1.setCameraReflectDistance(50);
 
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
@@ -82,6 +83,12 @@ public class Main {
         dragon.modelTransformation.changeScale(new Vector3f(.05f,.05f,.05f));
         dragon.modelTransformation.changePosition(new Vector3f(2,0,2));
         renderer.addModelsToRender(dragon);
+
+        //dawid
+        Model dawid = new Model("david2", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        dawid.modelTransformation.changePosition(new Vector3f(5,-1,-1));
+        renderer.addModelsToRender(dawid);
+
 
 
         //sciany
