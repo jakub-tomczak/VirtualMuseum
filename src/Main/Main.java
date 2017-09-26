@@ -14,6 +14,7 @@ import Utils.ApplicationEventsManager;
 import Utils.Constants;
 import Utils.DisplayManager;
 import Utils.ObjectLoader;
+import Wall.Wall;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -81,6 +82,12 @@ public class Main {
      //   column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(roof);
 
+        //instalacja
+        Texture artObjectTexture = Texture.loadTexture("rust", 0);
+        Model artObject = new Model("instalacja", shader1, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        artObject.modelTransformation.changeScale(new Vector3f(.1f,.1f,.1f));
+        artObject.modelTransformation.changePosition(new Vector3f(4,.4f,4));
+        renderer.addModelsToRender(artObject);
 
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
@@ -115,10 +122,12 @@ public class Main {
         renderer.addModelsToRender(lady);
 
 
+        Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
+        ShaderProgram multipleTextureShader = new TerrainShader("v_terrain", "f_terrain");
 
         //sciany
-        Texture wallTexture = Texture.loadTexture("wallBricksLowRes", 0);
-        Model wall0 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Texture wallTexture = Texture.loadTexture("wallBricks128x128", 0);
+        Model wall0 = new Model("wall", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         wall0.modelTransformation.changePosition(new Vector3f(0.1f,0,5f));
 
         Model wall1 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
@@ -151,19 +160,26 @@ public class Main {
         Mouse.setGrabbed(true);
 
         //podłoga
-        Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
         terrainTexture.setCameraReflectDistance(1);
         terrainTexture.setReflectivity(1f);
-        ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
-        Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
+        Terrain terrain = new Terrain(1,1, multipleTextureShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
         terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
+
+/*
+        //ściany
+        Wall wall4 = new Wall(.1f, .1f, multipleTextureShader, wallTexture);
+        wall4.getWallModel().loadProjectionMatrix(renderer.getProjectionMatrix());
+        wall4.getWallModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
+        wall4.getWallModel().modelTransformation.changeRotation(new Vector3f(90, 0 ,0 ));
+        wall4.getWallModel().modelTransformation.changeScale(new Vector3f(.5f, 1f, .12f));*/
 
 
         while (!Display.isCloseRequested()) {
 
             prepare();
             renderer.renderTerrain(terrain);
+          //  renderer.renderWall(wall4);
             renderer.renderModels();
             displayManager.update();
 
@@ -181,6 +197,9 @@ public class Main {
                             model1.modelTransformation.getPosition().z - .1f
                     )
             );*/
+
+          artObject.modelTransformation.rotate(new Vector3f(0,2,0));
+          dawid.modelTransformation.rotate(new Vector3f(0,1,0));
 
         }
 

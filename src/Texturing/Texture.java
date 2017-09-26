@@ -121,7 +121,6 @@ public class Texture{
         GL13.glActiveTexture(GL13.GL_TEXTURE0 );
         //bindowanie nowej tekstury
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texID);
-
         // All RGB bytes are aligned to each other and each component is 1 byte
         //GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 

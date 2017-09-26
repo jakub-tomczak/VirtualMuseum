@@ -4,6 +4,7 @@ import Camera.Camera;
 import Light.*;
 import Terrain.Terrain;
 import Utils.MathUtils;
+import Wall.Wall;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -45,7 +46,7 @@ public class ModelsRenderer {
 
     public void renderTerrain(Terrain terrain) {
         terrain.getTerrainModel().startUsingShader();
-       // terrain.getTerrainModel().loadProjectionMatrix(getProjectionMatrix());
+        // terrain.getTerrainModel().loadProjectionMatrix(getProjectionMatrix());
         bindAttribArrays(terrain.getTerrainModel().getVaoID());
         terrain.getTerrainModel().loadTexture();
         loadMatrices(terrain.getTerrainModel());
@@ -56,6 +57,20 @@ public class ModelsRenderer {
 
 
     }
+/*
+    public void renderWall(Wall wall) {
+        wall.getWallModel().startUsingShader();
+        bindAttribArrays(wall.getWallModel().getVaoID());
+        wall.getWallModel().loadTexture();
+        loadMatrices(wall.getWallModel());
+        wall.getWallModel().loadLights(LightHandler);
+        drawModel(wall.getWallModel().getVertexCount());
+        unbindAttribArrays();
+        wall.getWallModel().stopUsingShader();
+
+
+    }
+    */
 
     public void renderModels() {
         //sprawdza jaki klawisz został wciśnięty
