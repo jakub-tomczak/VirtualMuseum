@@ -86,7 +86,7 @@ public class Main {
 
         Mouse.setGrabbed(true);
 
-        Texture terrainTexture = Texture.loadTexture("terrainTile2", 0);
+        Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
