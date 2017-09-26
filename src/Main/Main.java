@@ -45,10 +45,10 @@ public class Main {
         Camera mainCamera = new Camera(new Vector3f(5,1,5));
 
         List<Light>lights = new ArrayList<Light>();
-        lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
-        lights.add(new Light(new Vector3f(20,0,0),new Vector3f(1,1,1)));
-        lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
-        lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
+       // lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
+        lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
+       // lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
+       // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
@@ -69,9 +69,9 @@ public class Main {
         //TexturedShader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
-        Texture texture2 = Texture.loadTexture("marbletexture", 0);
-        texture1.setReflectivity(1);
-        texture1.setCameraReflectDistance(50);
+        Texture texture2 = Texture.loadTexture("marble3", 0);
+        texture1.setReflectivity(0.1f);
+        texture1.setCameraReflectDistance(5000);
 
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
@@ -86,7 +86,7 @@ public class Main {
         renderer.addModelsToRender(dragon);
 
         //dawid
-        Model dawid = new Model("david2", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model dawid = new Model("david3", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
         dawid.modelTransformation.changePosition(new Vector3f(9.5f,.2f,.5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
@@ -129,8 +129,8 @@ public class Main {
 
         //podłoga
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
-        terrainTexture.setCameraReflectDistance(100);
-        terrainTexture.setReflectivity(100);
+        terrainTexture.setCameraReflectDistance(50);
+        terrainTexture.setReflectivity(0.5f);
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
