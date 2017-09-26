@@ -18,6 +18,7 @@ void main(void)
     vec3 finalDiffuse=vec3(0.0);
     vec3 finalSpecular=vec3(0.0);
     vec3 VectorToCamera = normalize(toCameraVector);
+    float distanceToCamera = length(toCameraVector);
 
     for(int i=0;i<4;i++){
     vec3 Normal = normalize(surfaceNormal);
@@ -34,6 +35,7 @@ void main(void)
     finalDiffuse = finalDiffuse + brightness*lightColor[i]; //
     }
     finalDiffuse = max(finalDiffuse,0.2);
+    float distanceFactor= max(distanceToCamera,4);
 
-    out_Color = vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0);  //zwraca kolor tekstury na podanych wspolrzedych
+    out_Color = (1/distanceFactor*5)*vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0);  //zwraca kolor tekstury na podanych wspolrzedych
 }

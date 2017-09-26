@@ -18,7 +18,7 @@ void main(void)
     vec3 finalDiffuse=vec3(0.0);
     vec3 finalSpecular=vec3(0.0);
     vec3 VectorToCamera = normalize(toCameraVector);
-
+    float distanceToCamera = length(toCameraVector);
     for(int i=0;i<4;i++){
     vec3 Normal = normalize(surfaceNormal);
     vec3 LightVector = normalize(toLightVector[i]);
