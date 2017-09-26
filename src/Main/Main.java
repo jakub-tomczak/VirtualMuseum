@@ -161,7 +161,7 @@ public class Main {
 
         //podłoga
         terrainTexture.setCameraReflectDistance(1);
-        terrainTexture.setReflectivity(1f);
+        terrainTexture.setReflectivity(0);
         Terrain terrain = new Terrain(1,1, multipleTextureShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
         terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));

@@ -9,6 +9,9 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
     private Vector3f position;
+    private static float MAX_X=9;
+    private static float MAX_Y=9;
+    private static float MAX_Z=9;
     private float pitch=0;
     private float yaw=0;
     private float roll=0;
@@ -70,22 +73,26 @@ public class Camera {
     public void update()
     {
         calculateAngle();
-        if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W))
-        {
-            walkForward(moveSpeed );
+        if(position.x>=9.5) position.x-=0.1;
+        else if(position.x<=0.5)position.x+=0.1;
+        else if(position.z>=9.5)position.z-=0.1;
+        else if(position.z<=0.5)position.z+=0.1;
+        else{
+            if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W)) {
+                walkForward(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S)) {
+                walkBackwards(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) || Keyboard.isKeyDown(Keyboard.KEY_D)) {
+                walkLeft(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) || Keyboard.isKeyDown(Keyboard.KEY_A)) {
+                walkRight(moveSpeed);
+            }
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
-        {
-            walkBackwards(moveSpeed );
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) || Keyboard.isKeyDown(Keyboard.KEY_D))
-        {
-            walkLeft(moveSpeed );
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) || Keyboard.isKeyDown(Keyboard.KEY_A))
-        {
-            walkRight(moveSpeed );
-        }
+
+
 
         viewMatrix = MathUtils.createViewMatrix(this);
 

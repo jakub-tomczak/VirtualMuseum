@@ -37,5 +37,5 @@ void main(void)
     finalDiffuse = max(finalDiffuse,0.2);
     float distanceFactor= max(distanceToCamera,4);
 
-    out_Color = (1/distanceFactor*5)*vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0);  //zwraca kolor tekstury na podanych wspolrzedych
+    out_Color = (1/distanceFactor*7)*vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0);  //zwraca kolor tekstury na podanych wspolrzedych
 }

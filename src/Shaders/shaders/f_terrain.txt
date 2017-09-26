@@ -34,6 +34,6 @@ void main(void)
     finalDiffuse = finalDiffuse + brightness*lightColor[i]; //
     }
     finalDiffuse = max(finalDiffuse,0.2);
-
-    out_Color = vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0);  //zwraca kolor tekstury na podanych wspolrzedych
+    float distanceFactor= max(distanceToCamera,4);
+    out_Color = (1/distanceFactor*5)*vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord) + vec4(finalSpecular,1.0); //zwraca kolor tekstury na podanych wspolrzedych
 }
