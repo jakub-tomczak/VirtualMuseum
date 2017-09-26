@@ -73,6 +73,13 @@ public class Main {
         texture1.setReflectivity(1);
         texture1.setCameraReflectDistance(50);
 
+        //dach
+        Model roof = new Model("dach", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        roof.modelTransformation.changePosition(new Vector3f(5,2.4f,5));
+     //   column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
+        renderer.addModelsToRender(roof);
+
+
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
         column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
@@ -105,7 +112,7 @@ public class Main {
         wall2.modelTransformation.changePosition(new Vector3f(9.9f,.2f,5f));
 
         Model wall3 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall3.modelTransformation.changePosition(new Vector3f(5f,0,10f));
+        wall3.modelTransformation.changePosition(new Vector3f(5f,0,9.9f));
 
         renderer.addModelsToRender(wall0);
         renderer.addModelsToRender(wall1);
