@@ -91,7 +91,7 @@ public class Texture{
         int texId = glGenTextures();
 
         //trzeba bindowac bo inaczej wywala blad
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL13.glActiveTexture(GL13.GL_TEXTURE0 );
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texId);
 
         return texId;
@@ -99,7 +99,7 @@ public class Texture{
 
     public void setTextureActive()
     {
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL13.glActiveTexture(GL13.GL_TEXTURE0 );
         //bindowanie nowej tekstury
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texID);
 

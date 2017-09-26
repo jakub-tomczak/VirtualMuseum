@@ -2,6 +2,7 @@ package Models;
 
 import Camera.Camera;
 import Light.*;
+import Terrain.Terrain;
 import Utils.MathUtils;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
@@ -19,8 +20,7 @@ public class ModelsRenderer {
     LightHandler Lights = new LightHandler();
 
 
-    public ModelsRenderer()
-    {
+    public ModelsRenderer() {
         projectionMatrix = MathUtils.createProjectionMatrix();
     }
 
@@ -43,8 +43,17 @@ public class ModelsRenderer {
     }
 
 
-    public void renderTerrain(Model terrainModel)
-    {
+    public void renderTerrain(Terrain terrain) {
+        terrain.getTerrainModel().startUsingShader();
+       // terrain.getTerrainModel().loadProjectionMatrix(getProjectionMatrix());
+        bindAttribArrays(terrain.getTerrainModel().getVaoID());
+        terrain.getTerrainModel().loadTexture();
+        loadMatrices(terrain.getTerrainModel());
+        this.Lights.turnOnLight(terrain.getTerrainModel());
+        drawModel(terrain.getTerrainModel().getVertexCount());
+        unbindAttribArrays();
+        terrain.getTerrainModel().stopUsingShader();
+
 
     }
 
@@ -53,44 +62,59 @@ public class ModelsRenderer {
         //oblicza macierz widoku
         mainCamera.update();
 
+
         for (Model model : modelsToRender) {
 
             //wlacza shader danego modelu
             model.startUsingShader();
-
-
-            GL30.glBindVertexArray(model.getVaoID());
-            GL20.glEnableVertexAttribArray(0);
-            GL20.glEnableVertexAttribArray(1);//włacza tablice z teksturami
-            GL20.glEnableVertexAttribArray(2);//włacza tablice ze światłem
+            bindAttribArrays(model.getVaoID());
             model.loadTexture();
 
             //ustawianie transformacji obiektu
-            model.loadTransformationMatrix();
+            loadMatrices(model);
 
-            model.loadViewMatrix(mainCamera.getViewMatrix());
-           // model.loadLight(testLight);
             this.Lights.turnOnLight(model);
-
             //model.modelTransformation.increasePosition();
-                model.modelTransformation.rotate();
+            //model.modelTransformation.rotate();
 
-            //GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
-            GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-            GL20.glDisableVertexAttribArray(0);
-            GL20.glDisableVertexAttribArray(1);
-            GL20.glDisableVertexAttribArray(2);
-            GL30.glBindVertexArray(0);
-
-
+            drawModel(model.getVertexCount());
+            unbindAttribArrays();
             model.stopUsingShader();
         }
+    }
+
+    private void drawModel(int vertexCount) {
+        GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+
+    }
+
+
+    private void loadMatrices(Model model) {
+        model.loadTransformationMatrix();
+
+        model.loadViewMatrix(mainCamera.getViewMatrix());
+    }
+
+    private void bindAttribArrays(int vaoID) {
+        GL30.glBindVertexArray(vaoID);
+        GL20.glEnableVertexAttribArray(0);
+        GL20.glEnableVertexAttribArray(1);//włacza tablice z teksturami
+        GL20.glEnableVertexAttribArray(2);//włacza tablice ze światłem
+    }
+
+    private void unbindAttribArrays() {
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
+        GL30.glBindVertexArray(0);
     }
 
     public void useCamera(Camera mainCamera) {
         this.mainCamera = mainCamera;
     }
 
-    public void useLight(LightHandler lightArray) {this.Lights=lightArray;}
+    public void useLight(LightHandler lightArray) {
+        this.Lights = lightArray;
     }
+}
 

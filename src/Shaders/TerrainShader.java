@@ -1,6 +1,7 @@
 package Shaders;
 
 import Interfaces.IApplicationEvents;
+import Light.Light;
 import Utils.ApplicationEventsManager;
 import org.lwjgl.util.vector.Matrix4f;
 
@@ -9,6 +10,8 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
+    private int lightPositionLocation;
+    private int lightColorLocation;
 
     public TerrainShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
@@ -30,10 +33,19 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
     }
 
     @Override
+    public void loadLight(Light light) {
+        super.loadVec3f(lightPositionLocation,light.getPosition());
+        super.loadVec3f(lightColorLocation,light.getColor());
+    }
+
+    @Override
     protected void getAllUniformLocations() {
         transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
         projectionMatrixLocation = super.getUniformLocation("projectionMatrix");
         viewMatrixLocation = super.getUniformLocation("viewMatrix");
+        lightPositionLocation = super.getUniformLocation("lightPosition");
+        lightColorLocation = super.getUniformLocation("lightColor");
+
     }
 
 

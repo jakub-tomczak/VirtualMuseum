@@ -18,7 +18,7 @@ public class Model {
 
     ModelData data;
     public ModelTransformation modelTransformation;
-    private Shader modelShader;
+    private ShaderProgram modelShader;
     public Texture modelTexture;
     //ustawia domyslna transformacje na
     //pozycje 0,0,0
@@ -32,7 +32,7 @@ public class Model {
                 new Vector3f(.5f,.5f,.5f));   //skala
     }
 
-    public Model(Shader shader, Texture texture)
+    public Model(ShaderProgram shader, Texture texture)
     {
         this();
         this.modelShader = shader;
@@ -111,7 +111,7 @@ public class Model {
 
     //ładowanie do bufora VAO, wykonywane jednokrotnie po inicjalizacji obiektu
     //jeżeli obiekt nie ma być generowany to nie powinien być ładowany do bufora VAO
-    private void loadToVAO()
+    public void loadToVAO()
     {
         VBOManager.getInstance().loadToVAO(this);
     }

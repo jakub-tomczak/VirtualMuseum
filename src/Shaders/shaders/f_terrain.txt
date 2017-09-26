@@ -1,13 +1,23 @@
 #version 400 core
 
 in vec2 f_textureCoord;
+in vec3 surfaceNormal;
+in vec3 toLightVector;
 
 out vec4 out_Color;
 
 uniform sampler2D texture_diff; //nowa zmianna jednorodna
+uniform vec3 lightColor;
 
 
 void main(void)
 {
-    out_Color = texture(texture_diff, f_textureCoord);  //zwraca kolor tekstury na podanych wspolrzedych
+
+    vec3 Normal = normalize(surfaceNormal);
+    vec3 LightVector = normalize(toLightVector);
+
+    float L= dot(Normal,LightVector);
+    float brightness = max(L,0.0);
+    vec3 light = brightness*lightColor; //
+    out_Color = vec4(light,1.0)* texture(texture_diff, f_textureCoord);  //zwraca kolor tekstury na podanych wspolrzedych
 }

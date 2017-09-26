@@ -3,7 +3,10 @@ package Terrain;
 import Models.Model;
 import Models.ModelData;
 import Shaders.Shader;
+import Shaders.ShaderProgram;
+import Shaders.TerrainShader;
 import Texturing.Texture;
+import org.lwjgl.util.vector.Vector3f;
 
 public class Terrain {
     private static final float SIZE = 800;
@@ -13,7 +16,7 @@ public class Terrain {
     private float z;
     private Model terrainModel;
 
-    public Terrain(int xCoords, int zCoords, Shader textureShader, Texture terrainTexture)
+    public Terrain(int xCoords, int zCoords, ShaderProgram textureShader, Texture terrainTexture)
     {
         this.x = xCoords * SIZE;
         this.z = zCoords * SIZE;
@@ -24,7 +27,13 @@ public class Terrain {
         //generuje dane dot modelu terenu
         generateTerrain();
 
+        this.terrainModel.loadToVAO();
 
+        //set height to 0
+        terrainModel.modelTransformation.changePosition(new Vector3f(
+                terrainModel.modelTransformation.getPosition().x,
+                0,
+                terrainModel.modelTransformation.getPosition().z));
 
     }
 
@@ -69,4 +78,8 @@ public class Terrain {
 
 
          }
+
+    public Model getTerrainModel() {
+        return terrainModel;
+    }
 }

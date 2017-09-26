@@ -4,6 +4,9 @@ import Models.Model;
 import Light.*;
 import Models.ModelsRenderer;
 import Shaders.Shader;
+import Shaders.ShaderProgram;
+import Shaders.TerrainShader;
+import Terrain.Terrain;
 import Texturing.Texture;
 import Camera.Camera;
 import Utils.ApplicationEventsManager;
@@ -42,6 +45,7 @@ public class Main {
         LightHandler lights= new LightHandler();
         lights.addLight(new Light(new Vector3f(2,5,0),new Vector3f(1,1,1))); // pozycja i kolor
         lights.addLight(new Light(new Vector3f(0,-5,-5),new Vector3f(1,1,1)));
+        lights.addLight(new Light(new Vector3f(0,5,5),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
@@ -81,9 +85,18 @@ public class Main {
 
 
         Mouse.setGrabbed(true);
+
+        Texture terrainTexture = Texture.loadTexture("terrainTile2", 0);
+        ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
+        Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
+        terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
+        terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,-2f,0));
+
+
         while (!Display.isCloseRequested()) {
 
             prepare();
+            renderer.renderTerrain(terrain);
             renderer.renderModels();
             displayManager.update();
 

@@ -1,5 +1,6 @@
 package Shaders;
 
+import Light.Light;
 import Utils.Constants;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -162,4 +163,12 @@ public abstract class ShaderProgram {
         matrixBuffer.flip();    //zmiana bufora na odczyt
         GL20.glUniformMatrix4(location, false, matrixBuffer);
     }
+
+    public abstract void loadProjectionMatix(Matrix4f projectionMatrix);
+
+    public abstract void loadViewMatrix(Matrix4f viewMatrix);
+
+    public abstract void loadLight(Light light);
+
+    public abstract void loadTransformationLocation(Matrix4f tansformationMatrix);
 }

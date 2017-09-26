@@ -17,6 +17,8 @@ public class Camera {
     private Matrix4f viewMatrix;
     public Camera() {
         position = new Vector3f(0,0,0);
+        viewMatrix = MathUtils.createViewMatrix(this);
+
     }
 
     float dx = 0.0f;
