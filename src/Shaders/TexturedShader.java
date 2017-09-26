@@ -7,7 +7,7 @@ import Utils.ApplicationEventsManager;
 import Utils.MathUtils;
 import org.lwjgl.util.vector.Matrix4f;
 
-public class Shader extends ShaderProgram implements IApplicationEvents {
+public class TexturedShader extends ShaderProgram implements IApplicationEvents {
 
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
@@ -15,7 +15,7 @@ public class Shader extends ShaderProgram implements IApplicationEvents {
     private int lightPositionLocation;
     private int lightColorLocation;
 
-    public Shader(String vertexShaderFileName, String fragmentShaderFileName) {
+    public TexturedShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
         ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }

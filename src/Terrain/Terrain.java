@@ -2,9 +2,7 @@ package Terrain;
 
 import Models.Model;
 import Models.ModelData;
-import Shaders.Shader;
 import Shaders.ShaderProgram;
-import Shaders.TerrainShader;
 import Texturing.Texture;
 import org.lwjgl.util.vector.Vector3f;
 

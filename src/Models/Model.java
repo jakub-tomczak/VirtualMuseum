@@ -1,13 +1,11 @@
 package Models;
 
-import Shaders.Shader;
+import Shaders.TexturedShader;
 import Light.Light;
 import Shaders.ShaderProgram;
 import Texturing.Texture;
-import Utils.Constants;
 import Utils.ObjectLoader;
 import Utils.VBOManager;
-import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -43,7 +41,7 @@ public class Model {
 
     //to się przyda do ładowania modeli z pliku,
     //wystarczy podać nazwę pliku, który jest w folderze modelsData, bez rozszerzenia
-    public Model(String filename, Shader shader, Texture texture, ObjectLoader.FacesMode facesMode)
+    public Model(String filename, TexturedShader shader, Texture texture, ObjectLoader.FacesMode facesMode)
     {
         this();
         ModelData modelData = ObjectLoader.loadModel(filename, facesMode); //to facesMode niech zostanie

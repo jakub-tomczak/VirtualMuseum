@@ -3,7 +3,7 @@ package Main;
 import Models.Model;
 import Light.*;
 import Models.ModelsRenderer;
-import Shaders.Shader;
+import Shaders.TexturedShader;
 import Shaders.ShaderProgram;
 import Shaders.TerrainShader;
 import Terrain.Terrain;
@@ -49,7 +49,7 @@ public class Main {
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
-        Shader shader1 = new Shader("v_textured", "f_textured");
+        TexturedShader shader1 = new TexturedShader("v_textured", "f_textured");
 
 
         //TODO:
@@ -63,7 +63,7 @@ public class Main {
         //każdy obiekt 3D to instancja klasy Model
         //posiada ona ModelData - do przechowywania informacji o wierzchołkach
         //ModelTransformation - do przechowywania informacji o transformacji obiektu
-        //Shader - do przechowywania informacji o shaderze
+        //TexturedShader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
         Model model1 = new Model("instalacja", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
