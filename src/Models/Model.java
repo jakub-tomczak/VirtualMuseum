@@ -2,6 +2,7 @@ package Models;
 
 import Shaders.Shader;
 import Light.Light;
+import java.util.*;
 import Shaders.ShaderProgram;
 import Texturing.Texture;
 import Utils.Constants;
@@ -103,9 +104,9 @@ public class Model {
         modelShader.loadViewMatrix(viewMatrix);
     }
 
-    public void loadLight(Light light)
+    public void loadLights(List<Light> lights)
     {
-        modelShader.loadLight(light);
+        modelShader.loadLights(lights);
     }
 
 

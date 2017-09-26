@@ -2,22 +2,25 @@
 
 in vec2 f_textureCoord;
 in vec3 surfaceNormal;
-in vec3 toLightVector;
+in vec3 toLightVector[4];
 
 out vec4 out_Color;
 
 uniform sampler2D texture_diff; //nowa zmianna jednorodna
-uniform vec3 lightColor;
+uniform vec3 lightColor[4];
 
 
 void main(void)
 {
-
+    vec3 finalDiffuse=vec3(0.0);
+    for(int i=0;i<4;i++){
     vec3 Normal = normalize(surfaceNormal);
-    vec3 LightVector = normalize(toLightVector);
-
+    vec3 LightVector = normalize(toLightVector[i]);
     float L= dot(Normal,LightVector);
     float brightness = max(L,0.0);
-    vec3 light = brightness*lightColor; //
-    out_Color = vec4(light,1.0)* texture(texture_diff, f_textureCoord);  //zwraca kolor tekstury na podanych wspolrzedych
+    finalDiffuse = finalDiffuse + brightness*lightColor[i]; //
+    }
+    finalDiffuse = max(finalDiffuse,0.2);
+
+    out_Color = vec4(finalDiffuse,1.0)* texture(texture_diff, f_textureCoord);  //zwraca kolor tekstury na podanych wspolrzedych
 }

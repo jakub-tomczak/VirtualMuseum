@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ModelsRenderer {
     Camera mainCamera = new Camera();
-    LightHandler Lights = new LightHandler();
+    List<Light>LightHandler = new ArrayList<Light>();
 
 
     public ModelsRenderer() {
@@ -49,7 +49,7 @@ public class ModelsRenderer {
         bindAttribArrays(terrain.getTerrainModel().getVaoID());
         terrain.getTerrainModel().loadTexture();
         loadMatrices(terrain.getTerrainModel());
-        this.Lights.turnOnLight(terrain.getTerrainModel());
+        terrain.getTerrainModel().loadLights(LightHandler);
         drawModel(terrain.getTerrainModel().getVertexCount());
         unbindAttribArrays();
         terrain.getTerrainModel().stopUsingShader();
@@ -73,7 +73,7 @@ public class ModelsRenderer {
             //ustawianie transformacji obiektu
             loadMatrices(model);
 
-            this.Lights.turnOnLight(model);
+            model.loadLights(LightHandler);
             //model.modelTransformation.increasePosition();
             //model.modelTransformation.rotate();
 
@@ -113,8 +113,8 @@ public class ModelsRenderer {
         this.mainCamera = mainCamera;
     }
 
-    public void useLight(LightHandler lightArray) {
-        this.Lights = lightArray;
+    public void useLight(List<Light>lightArray) {
+        this.LightHandler = lightArray;
     }
 }
 
