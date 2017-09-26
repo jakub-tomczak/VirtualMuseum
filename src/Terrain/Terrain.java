@@ -7,7 +7,7 @@ import Texturing.Texture;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Terrain {
-    private static final float SIZE = 800;
+    private static final float SIZE = 30;
     private static final int VERTEX_COUNT = 64;
 
     private float x;
