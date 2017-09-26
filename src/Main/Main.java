@@ -70,8 +70,8 @@ public class Main {
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
         texture1.setReflectivity(5);
         texture1.setCameraReflectDistance(5);
-        Model model1 = new Model("instalacja", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
-        Model model2 = new Model("szescian2", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model model1 = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        Model model2 = new Model("paintingTextured", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
         //zmiana położenia oraz rotacji modelu
        /* model1.modelTransformation.changePosition(new Vector3f(.5f, .5f, -1f));
         model1.modelTransformation.changeRotation(new Vector3f(1, 1, 1));         //obroty sa podawane w kątach, podczas tworzenia macierzy transformacji są przeliczane na radiany
@@ -80,7 +80,7 @@ public class Main {
         //wystarczy ustawić dla jednego modelu używającego tego samego shadera - chyba
         model2.loadProjectionMatrix(renderer.getProjectionMatrix());
 
-      //  model2.modelTransformation.changePosition(new Vector3f(-.5f, -.5f, 0f));
+        model2.modelTransformation.changePosition(new Vector3f(5f, 0f, 0f));
 
         //dopisz model do listy modeli które sa renderowane w każdej klatce
         // renderer.addModelsToRender(model);

@@ -42,7 +42,7 @@ public class Model {
 
     //to się przyda do ładowania modeli z pliku,
     //wystarczy podać nazwę pliku, który jest w folderze modelsData, bez rozszerzenia
-    public Model(String filename, TexturedShader shader, Texture texture, ObjectLoader.FacesMode facesMode)
+    public Model(String filename, ShaderProgram shader, Texture texture, ObjectLoader.FacesMode facesMode)
     {
         this();
         ModelData modelData = ObjectLoader.loadModel(filename, facesMode); //to facesMode niech zostanie
@@ -64,7 +64,7 @@ public class Model {
             modelShader.loadShineVariables(modelTexture.getCameraReflectDistance(),modelTexture.getReflectivity());
         }else
         {
-            System.out.println("model texturer jest pusty!");
+            //System.out.println("model texturer jest pusty!");
         }
     }
 
