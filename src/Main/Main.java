@@ -69,8 +69,9 @@ public class Main {
         //TexturedShader - do przechowywania informacji o shaderze
         Texture texture = Texture.loadTexture("bohomaz", 0);
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
-        texture1.setReflectivity(5);
-        texture1.setCameraReflectDistance(5);
+        Texture texture2 = Texture.loadTexture("marbletexture", 0);
+        texture1.setReflectivity(1);
+        texture1.setCameraReflectDistance(50);
 
         //kolumna
         Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
@@ -84,11 +85,12 @@ public class Main {
         dragon.modelTransformation.changePosition(new Vector3f(2,.4f,2));
         renderer.addModelsToRender(dragon);
 
-        //instalacja
-        Model artObject = new Model("instalacja", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
-        artObject.modelTransformation.changeScale(new Vector3f(.08f,.08f,.08f));
-        artObject.modelTransformation.changePosition(new Vector3f(4,.4f,4));
-        renderer.addModelsToRender(artObject);
+        //dawid
+        Model dawid = new Model("david2", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        dawid.modelTransformation.changePosition(new Vector3f(5,-1,-1));
+        renderer.addModelsToRender(dawid);
+
+
 
         //sciany
         Texture wallTexture = Texture.loadTexture("wallBricksLowRes", 0);
