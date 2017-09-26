@@ -9,7 +9,7 @@ import Utils.MathUtils;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Shader extends ShaderProgram implements IApplicationEvents {
+public class TexturedShader extends ShaderProgram implements IApplicationEvents {
 
     private static int MAX_LIGHTS = 4;
     private int transformationMatrixLocation;
@@ -19,7 +19,7 @@ public class Shader extends ShaderProgram implements IApplicationEvents {
     private int lightColorLocation[];
 
 
-    public Shader(String vertexShaderFileName, String fragmentShaderFileName) {
+    public TexturedShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
         ApplicationEventsManager.getInstance().subscribeToApplicationEvents(this);
     }

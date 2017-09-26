@@ -23,15 +23,24 @@ public class Camera {
 
     float dx = 0.0f;
     float dy = 0.0f;
-
+    float angle = 0f;
+    float angleDiff = 10f;
+    float walkFactor = 0.1f;
+    float height = 1f;
     public void walkForward(float distance) {
         position.x += distance * (float) Math.sin(Math.toRadians(yaw));
         position.z -= distance * (float) Math.cos(Math.toRadians(yaw));
+        angle+= angleDiff;
+        position.y = height * (float) Math.sin(Math.toRadians(angle)) * walkFactor;
+
     }
 
     public void walkBackwards(float distance) {
         position.x -= distance * (float) Math.sin(Math.toRadians(yaw));
         position.z += distance * (float) Math.cos(Math.toRadians(yaw));
+        angle-= angleDiff;
+        position.y = height * (float) Math.sin(Math.toRadians(angle)) * walkFactor;
+
     }
 
     public void walkLeft(float distance) {
@@ -48,19 +57,19 @@ public class Camera {
     public void update()
     {
         calculateAngle();
-        if (Keyboard.isKeyDown(Keyboard.KEY_UP))
+        if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W))
         {
             walkForward(moveSpeed );
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S))
         {
             walkBackwards(moveSpeed );
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) || Keyboard.isKeyDown(Keyboard.KEY_D))
         {
             walkLeft(moveSpeed );
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) || Keyboard.isKeyDown(Keyboard.KEY_A))
         {
             walkRight(moveSpeed );
         }
