@@ -101,9 +101,11 @@ public class Main {
         renderer.addModelsToRender(column);
 
         //smok
-        Model dragon = new Model("dragon", shader1, texture1, ObjectLoader.FacesMode.VertexNormalIndices);
-        dragon.modelTransformation.changeScale(new Vector3f(.05f,.05f,.05f));
-        dragon.modelTransformation.changePosition(new Vector3f(2,.4f,2));
+        Texture dragonTexture = Texture.loadTexture("dragonScale256x256", 0);
+        Model dragon = new Model("dragon", shader1, dragonTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        dragon.modelTransformation.changeScale(new Vector3f(.2f,.2f,.2f));
+        dragon.modelTransformation.changePosition(new Vector3f(5,.4f,.5f));
+        dragon.modelTransformation.rotate(new Vector3f(0,0,0));
         renderer.addModelsToRender(dragon);
 
         //dawid
@@ -154,24 +156,6 @@ public class Main {
         //sciany
         Texture wallTexture = Texture.loadTexture("wallBricks128x128", 0);
 
-        /*
-
-        Model wall0 = new Model("wall", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall0.modelTransformation.changePosition(new Vector3f(0.1f,0,5f));
-
-        Model wall1 = new Model("wall90", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall1.modelTransformation.changePosition(new Vector3f(5f,.2f,0));
-
-        Model wall2 = new Model("wall", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall2.modelTransformation.changePosition(new Vector3f(9.9f,.2f,5f));
-
-        Model wall3 = new Model("wall90", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        wall3.modelTransformation.changePosition(new Vector3f(5f,0,9.9f));
-
-        renderer.addModelsToRender(wall0);
-        renderer.addModelsToRender(wall1);
-        renderer.addModelsToRender(wall2);
-        renderer.addModelsToRender(wall3);*/
 
 
         //zmiana położenia oraz rotacji modelu
