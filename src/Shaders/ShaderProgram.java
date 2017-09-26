@@ -2,6 +2,7 @@ package Shaders;
 
 import Light.Light;
 import Utils.Constants;
+import java.util.*;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -168,7 +169,7 @@ public abstract class ShaderProgram {
 
     public abstract void loadViewMatrix(Matrix4f viewMatrix);
 
-    public abstract void loadLight(Light light);
+    public abstract void loadLights(List<Light> lights);
 
     public abstract void loadTransformationLocation(Matrix4f tansformationMatrix);
 }

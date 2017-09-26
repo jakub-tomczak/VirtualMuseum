@@ -2,18 +2,22 @@ package Shaders;
 
 import Camera.Camera;
 import Light.Light;
+import java.util.*;
 import Interfaces.IApplicationEvents;
 import Utils.ApplicationEventsManager;
 import Utils.MathUtils;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 public class TexturedShader extends ShaderProgram implements IApplicationEvents {
 
+    private static int MAX_LIGHTS = 4;
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
-    private int lightPositionLocation;
-    private int lightColorLocation;
+    private int lightPositionLocation[];
+    private int lightColorLocation[];
+
 
     public TexturedShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
@@ -33,10 +37,21 @@ public class TexturedShader extends ShaderProgram implements IApplicationEvents 
     {
         super.loadMat4f(viewMatrixLocation, viewMatrix);
     }
-    public void loadLight(Light light)
+    public void loadLights(List<Light>lights)
     {
-        super.loadVec3f(lightPositionLocation,light.getPosition());
-        super.loadVec3f(lightColorLocation,light.getColor());
+        for(int i=0;i<MAX_LIGHTS;i++)
+        {
+            if(i<lights.size())
+            {
+                super.loadVec3f(lightPositionLocation[i],lights.get(i).getPosition());
+                super.loadVec3f(lightColorLocation[i],lights.get(i).getColor());
+            }
+            else
+            {
+                super.loadVec3f(lightPositionLocation[i],new Vector3f(0,0,0));
+                super.loadVec3f(lightColorLocation[i],new Vector3f(0,0,0));
+            }
+        }
     }
 
     @Override
@@ -44,8 +59,14 @@ public class TexturedShader extends ShaderProgram implements IApplicationEvents 
         transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
         projectionMatrixLocation = super.getUniformLocation("projectionMatrix");
         viewMatrixLocation = super.getUniformLocation("viewMatrix");
-        lightPositionLocation = super.getUniformLocation("lightPosition");
-        lightColorLocation = super.getUniformLocation("lightColor");
+        lightPositionLocation= new int[MAX_LIGHTS];
+        lightColorLocation = new int[MAX_LIGHTS];
+        for(int i=0;i<MAX_LIGHTS;i++)
+        {
+            lightPositionLocation[i]=super.getUniformLocation("lightPosition[" + i + "]");
+            lightColorLocation[i]=super.getUniformLocation("lightColor[" + i + "]");
+
+        }
     }
 
 

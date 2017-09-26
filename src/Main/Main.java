@@ -2,6 +2,7 @@ package Main;
 
 import Models.Model;
 import Light.*;
+import java.util.*;
 import Models.ModelsRenderer;
 import Shaders.TexturedShader;
 import Shaders.ShaderProgram;
@@ -42,10 +43,11 @@ public class Main {
         ApplicationEventsManager.getInstance().onApplicationStarted();
 
         Camera mainCamera = new Camera();
-        LightHandler lights= new LightHandler();
-        lights.addLight(new Light(new Vector3f(2,5,0),new Vector3f(1,1,1))); // pozycja i kolor
-        lights.addLight(new Light(new Vector3f(0,-5,-5),new Vector3f(1,1,1)));
-        lights.addLight(new Light(new Vector3f(0,5,5),new Vector3f(1,1,1)));
+        List<Light>lights = new ArrayList<Light>();
+        lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
+        lights.add(new Light(new Vector3f(20,0,0),new Vector3f(1,1,1)));
+        lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
+     //   lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);

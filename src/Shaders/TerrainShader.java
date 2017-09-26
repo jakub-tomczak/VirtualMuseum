@@ -4,14 +4,18 @@ import Interfaces.IApplicationEvents;
 import Light.Light;
 import Utils.ApplicationEventsManager;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
+import java.util.List;
 
 public class TerrainShader extends ShaderProgram implements IApplicationEvents {
 
+    private static int MAX_LIGHTS = 4;
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
-    private int lightPositionLocation;
-    private int lightColorLocation;
+    private int lightPositionLocation[];
+    private int lightColorLocation[];
 
     public TerrainShader(String vertexShaderFileName, String fragmentShaderFileName) {
         super(vertexShaderFileName, fragmentShaderFileName);
@@ -33,9 +37,21 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
     }
 
     @Override
-    public void loadLight(Light light) {
-        super.loadVec3f(lightPositionLocation,light.getPosition());
-        super.loadVec3f(lightColorLocation,light.getColor());
+    public void loadLights(List<Light> lights)
+    {
+        for(int i=0;i<MAX_LIGHTS;i++)
+        {
+            if(i<lights.size())
+            {
+                super.loadVec3f(lightPositionLocation[i],lights.get(i).getPosition());
+                super.loadVec3f(lightColorLocation[i],lights.get(i).getColor());
+            }
+            else
+            {
+                super.loadVec3f(lightPositionLocation[i],new Vector3f(0,0,0));
+                super.loadVec3f(lightColorLocation[i],new Vector3f(0,0,0));
+            }
+        }
     }
 
     @Override
@@ -43,8 +59,14 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
         transformationMatrixLocation = super.getUniformLocation("transformationMatrix");
         projectionMatrixLocation = super.getUniformLocation("projectionMatrix");
         viewMatrixLocation = super.getUniformLocation("viewMatrix");
-        lightPositionLocation = super.getUniformLocation("lightPosition");
-        lightColorLocation = super.getUniformLocation("lightColor");
+        lightPositionLocation= new int[MAX_LIGHTS];
+        lightColorLocation = new int[MAX_LIGHTS];
+        for(int i=0;i<MAX_LIGHTS;i++)
+        {
+            lightPositionLocation[i]=super.getUniformLocation("lightPosition[" + i + "]");
+            lightColorLocation[i]=super.getUniformLocation("lightColor[" + i + "]");
+
+        }
 
     }
 
@@ -53,6 +75,7 @@ public class TerrainShader extends ShaderProgram implements IApplicationEvents {
     protected void bindAttributes() {
         bindAttribute(0, "v_position");
         bindAttribute(1, "v_textureCoords");
+        bindAttribute(2, "normal");
     }
 
     @Override
