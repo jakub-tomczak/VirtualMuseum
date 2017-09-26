@@ -14,7 +14,7 @@ import Utils.ApplicationEventsManager;
 import Utils.Constants;
 import Utils.DisplayManager;
 import Utils.ObjectLoader;
-import Wall.Wall;
+import Walls.Walls;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -48,7 +48,7 @@ public class Main {
         List<Light>lights = new ArrayList<Light>();
        // lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
         lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
-       // lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
+        //lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
        // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
@@ -78,7 +78,8 @@ public class Main {
         texture1.setCameraReflectDistance(5000);
 
         //dach
-        Model roof = new Model("dach", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        Texture roofTexture = Texture.loadTexture("nightSky1024x1024", 0);
+        Model roof = new Model("dach", shader1, roofTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         roof.modelTransformation.changePosition(new Vector3f(5,2.4f,5));
      //   column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(roof);
@@ -91,7 +92,8 @@ public class Main {
         renderer.addModelsToRender(artObject);
 
         //kolumna
-        Model column = new Model("kolumna", shader1, texture, ObjectLoader.FacesMode.VertexNormalIndicesWithoutTextureCoordinateIndices);
+        Texture columnTexture = Texture.loadTexture("simple2",0);
+        Model column = new Model("kolumna", shader1, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
         column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(column);
@@ -117,7 +119,7 @@ public class Main {
 
         //dama z gronostajem
         Model lady = new Model("dama", shader1, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
-        lady.modelTransformation.changePosition(new Vector3f(9.48f,2.35f,4.18f));
+        lady.modelTransformation.changePosition(new Vector3f(9.55f,2.35f,4.18f));
         lady.modelTransformation.changeScale(new Vector3f(.28f, .4f, .3f));
         lady.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(lady);
@@ -142,22 +144,25 @@ public class Main {
 
         //sciany
         Texture wallTexture = Texture.loadTexture("wallBricks128x128", 0);
+
+        /*
+
         Model wall0 = new Model("wall", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         wall0.modelTransformation.changePosition(new Vector3f(0.1f,0,5f));
 
-        Model wall1 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model wall1 = new Model("wall90", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         wall1.modelTransformation.changePosition(new Vector3f(5f,.2f,0));
 
-        Model wall2 = new Model("wall", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model wall2 = new Model("wall", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         wall2.modelTransformation.changePosition(new Vector3f(9.9f,.2f,5f));
 
-        Model wall3 = new Model("wall90", shader1, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model wall3 = new Model("wall90", multipleTextureShader, wallTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         wall3.modelTransformation.changePosition(new Vector3f(5f,0,9.9f));
 
         renderer.addModelsToRender(wall0);
         renderer.addModelsToRender(wall1);
         renderer.addModelsToRender(wall2);
-        renderer.addModelsToRender(wall3);
+        renderer.addModelsToRender(wall3);*/
 
 
         //zmiana położenia oraz rotacji modelu
@@ -181,20 +186,13 @@ public class Main {
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
         terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
 
-/*
-        //ściany
-        Wall wall4 = new Wall(.1f, .1f, multipleTextureShader, wallTexture);
-        wall4.getWallModel().loadProjectionMatrix(renderer.getProjectionMatrix());
-        wall4.getWallModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
-        wall4.getWallModel().modelTransformation.changeRotation(new Vector3f(90, 0 ,0 ));
-        wall4.getWallModel().modelTransformation.changeScale(new Vector3f(.5f, 1f, .12f));*/
-
+        Walls wallsGenerator = new Walls(.1f,.1f, multipleTextureShader, wallTexture);
 
         while (!Display.isCloseRequested()) {
 
             prepare();
             renderer.renderTerrain(terrain);
-          //  renderer.renderWall(wall4);
+            renderer.renderWalls(wallsGenerator);
             renderer.renderModels();
             displayManager.update();
 

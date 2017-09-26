@@ -4,15 +4,11 @@ import Camera.Camera;
 import Light.*;
 import Terrain.Terrain;
 import Utils.MathUtils;
-import Wall.Wall;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-
+import Walls.Walls;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,20 +53,21 @@ public class ModelsRenderer {
 
 
     }
-/*
-    public void renderWall(Wall wall) {
-        wall.getWallModel().startUsingShader();
-        bindAttribArrays(wall.getWallModel().getVaoID());
-        wall.getWallModel().loadTexture();
-        loadMatrices(wall.getWallModel());
-        wall.getWallModel().loadLights(LightHandler);
-        drawModel(wall.getWallModel().getVertexCount());
-        unbindAttribArrays();
-        wall.getWallModel().stopUsingShader();
 
-
+    public void renderWalls(Walls wallsObject) {
+        for(int i=0;i<wallsObject.getWalls().size();i++)
+        {
+            wallsObject.getWalls().get(i).startUsingShader();
+            bindAttribArrays(wallsObject.getWalls().get(i).getVaoID());
+            wallsObject.getWalls().get(i).loadTexture();
+            loadMatrices(wallsObject.getWalls().get(i));
+            wallsObject.getWalls().get(i).loadLights(LightHandler);
+            drawModel(wallsObject.getWalls().get(i).getVertexCount());
+            unbindAttribArrays();
+            wallsObject.getWalls().get(i).stopUsingShader();
+        }
     }
-    */
+
 
     public void renderModels() {
         //sprawdza jaki klawisz został wciśnięty

@@ -1,4 +1,4 @@
-package Wall;
+package Walls;
 
 import Models.Model;
 import Models.ModelData;
@@ -9,36 +9,46 @@ import org.lwjgl.util.vector.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wall {
+public class Walls {
     private static final int SIZE = 20;
     private static final int VERTEX_COUNT = 64;
 
     private float x;
     private float z;
     List<Model> walls = new ArrayList<>();
+    float wallWidth = 10f;
 
-    public Wall(float xCoords, float zCoords, ShaderProgram textureShader, Texture terrainTexture)
+    public Walls(float xCoords, float zCoords, ShaderProgram textureShader, Texture terrainTexture)
     {
-        this.x = xCoords * SIZE;
-        this.z = zCoords * SIZE;
+        this.x = 10f;
+        this.z = 10f;
 
-        Model wallModel = new Model(textureShader, terrainTexture);
+        float [] xCoordsArray  = {0f, wallWidth - .1f, -.1f, 0f};
+        float [] zCoordsArray  = {.1f, 0f, wallWidth, .1f};
+        float [] zAxisRotations = {0f, 90f, 0f, 90f};
 
-        //generuje dane dot modelu terenu
-        generateWall(wallModel);
+        ///////////////////////////////
+        for(int i=0;i<4;i++)
+        {
+            Model wallModel = new Model(textureShader, terrainTexture);
 
-        //set height to 0
-        wallModel.modelTransformation.changePosition(new Vector3f(
-                wallModel.modelTransformation.getPosition().x,
-                1.2f,
-                wallModel.modelTransformation.getPosition().z));
+            //generuje dane dot modelu terenu
+            generateWall(wallModel);
+
+            //set height to 0
+            wallModel.modelTransformation.changePosition(new Vector3f(
+                    xCoordsArray[i],
+                    2.5f,
+                    zCoordsArray[i]));
+
+         //   wallModel.modelTransformation.changeScale(new Vector3f(.5f, 1f, .124f));
+
+            wallModel.modelTransformation.changeRotation(new Vector3f(90,0, zAxisRotations[i])); ///
 
 
-        wallModel.loadToVAO();
-
-        walls.add(wallModel);
-
-
+            wallModel.loadToVAO();
+            walls.add(wallModel);
+        }
     }
 
     private void generateWall(Model wallModel){
@@ -50,9 +60,9 @@ public class Wall {
         int vertexPointer = 0;
         for(int i=0;i<VERTEX_COUNT;i++){
             for(int j=0;j<VERTEX_COUNT;j++){
-                vertices[vertexPointer*3] = (float)j/((float)VERTEX_COUNT - 1) * SIZE;
+                vertices[vertexPointer*3] = (float)j/((float)VERTEX_COUNT - 1) * 20;
                 vertices[vertexPointer*3+1] = 0;
-                vertices[vertexPointer*3+2] = (float)i/((float)VERTEX_COUNT - 1) * SIZE;
+                vertices[vertexPointer*3+2] = (float)i/((float)VERTEX_COUNT - 1) * 5f;
                 normals[vertexPointer*3] = 0;
                 normals[vertexPointer*3+1] = 1;
                 normals[vertexPointer*3+2] = 0;
@@ -83,5 +93,7 @@ public class Wall {
 
          }
 
-
+    public List<Model> getWalls() {
+        return walls;
+    }
 }
