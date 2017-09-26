@@ -76,6 +76,8 @@ public class Main {
         Texture texture5 = Texture.loadTexture("rejtan", 0);
         texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
+        texture2.setReflectivity(1f);
+        texture2.setCameraReflectDistance(10);
 
         //dach
         Texture roofTexture = Texture.loadTexture("nightSky1024x1024", 0);
@@ -137,6 +139,13 @@ public class Main {
         rejtan.modelTransformation.changeScale(new Vector3f(.28f, .4f, .35f));
        // rejtan.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(rejtan);
+
+        //podstawka
+        Model stand = new Model("mat", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        stand.modelTransformation.changePosition(new Vector3f(1,-0.2f,8));
+        stand.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
+        renderer.addModelsToRender(stand);
+
 
 
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
