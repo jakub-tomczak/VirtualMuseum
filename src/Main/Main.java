@@ -129,8 +129,8 @@ public class Main {
 
         //podłoga
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
-        terrainTexture.setCameraReflectDistance(50);
-        terrainTexture.setReflectivity(0.5f);
+        terrainTexture.setCameraReflectDistance(1);
+        terrainTexture.setReflectivity(1f);
         ShaderProgram terrainShader = new TerrainShader("v_terrain", "f_terrain");
         Terrain terrain = new Terrain(1,1, terrainShader, terrainTexture);
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
