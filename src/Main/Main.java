@@ -47,13 +47,13 @@ public class Main {
 
         List<Light>lights = new ArrayList<Light>();
        // lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
-        lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
+        lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1f,1f,1)));
         //lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
        // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
-        TexturedShader shader1 = new TexturedShader("v_textured", "f_textured");
+        TexturedShader texturedShader = new TexturedShader("v_textured", "f_textured");
 
 
         //TODO:
@@ -80,29 +80,37 @@ public class Main {
         texture2.setCameraReflectDistance(10);
 
         //dach
-        Texture roofTexture = Texture.loadTexture("nightSky1024x1024", 0);
-        Model roof = new Model("dach", shader1, roofTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Texture roofTexture = Texture.loadTexture("simple2", 0);
+        roofTexture.setCameraReflectDistance(10);
+        roofTexture.setReflectivity(1f);
+        Model roof = new Model("dach2", texturedShader, roofTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         roof.modelTransformation.changePosition(new Vector3f(5,2.4f,5));
-     //   column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
+        roof.modelTransformation.changeScale(new Vector3f(1.05f,1.05f,1.05f));
         renderer.addModelsToRender(roof);
 
         //instalacja
         Texture artObjectTexture = Texture.loadTexture("rust", 0);
-        Model artObject = new Model("instalacja", shader1, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        artObject.modelTransformation.changeScale(new Vector3f(.1f,.1f,.1f));
-        artObject.modelTransformation.changePosition(new Vector3f(4,.4f,4));
+        artObjectTexture.setCameraReflectDistance(1);
+        artObjectTexture.setReflectivity(100f);
+        Model artObject = new Model("instalacja", texturedShader, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        artObject.modelTransformation.changeScale(new Vector3f(.3f,.3f,.3f));
+        artObject.modelTransformation.changePosition(new Vector3f(1.5f,1.4f,8.5f));
         renderer.addModelsToRender(artObject);
 
         //kolumna
         Texture columnTexture = Texture.loadTexture("simple2",0);
-        Model column = new Model("kolumna", shader1, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        columnTexture.setCameraReflectDistance(10);
+        columnTexture.setReflectivity(.1f);
+        Model column = new Model("kolumna", texturedShader, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
         column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(column);
 
         //smok
         Texture dragonTexture = Texture.loadTexture("dragonScale256x256", 0);
-        Model dragon = new Model("dragon", shader1, dragonTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        dragonTexture.setCameraReflectDistance(10);
+        dragonTexture.setReflectivity(3f);
+        Model dragon = new Model("dragon", texturedShader, dragonTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         dragon.modelTransformation.changeScale(new Vector3f(.2f,.2f,.2f));
         dragon.modelTransformation.changePosition(new Vector3f(5,.4f,.5f));
         dragon.modelTransformation.rotate(new Vector3f(0,0,0));
@@ -113,11 +121,17 @@ public class Main {
         {
             for(int j=0;j<2;j++)
             {
-                Texture lampTexture = Texture.loadTexture("simple2", 0);
-                Model lamp = new Model("lamp", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-                lamp.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,2f,2.5f + j*5f));
+                Texture lampTexture = Texture.loadTexture("marble3", 0);
+                Model lamp = new Model("lamp3", texturedShader, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+                lamp.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,7f,2.5f + j*5f));
+                lamp.modelTransformation.changeScale(new Vector3f(1.3f, 1.3f, 1.3f));
                 renderer.addModelsToRender(lamp);
-
+                //bulb
+                Texture bulbTexture = Texture.loadTexture("bulb", 0);
+                Model bulb = new Model("bulb", texturedShader, bulbTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+                bulb.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,7.5f,2.5f + j*5f));
+                bulb.modelTransformation.changeScale(new Vector3f(1.3f, 1.3f, 1.3f));
+                renderer.addModelsToRender(bulb);
             }
         }
 
@@ -130,41 +144,41 @@ public class Main {
         */
 
         //dawid
-        Model dawid = new Model("david3", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model dawid = new Model("david3", texturedShader, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
         dawid.modelTransformation.changePosition(new Vector3f(5f,.2f,5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
         //ramka damy
-        Model frame = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model frame = new Model("woodenFrame", texturedShader, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
         frame.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,4f));
         frame.modelTransformation.changeScale(new Vector3f(.4f, .4f, 0.3f));
         frame.modelTransformation.rotate(new Vector3f(0,180,1));
         renderer.addModelsToRender(frame);
 
         //dama z gronostajem
-        Model lady = new Model("dama", shader1, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model lady = new Model("dama", texturedShader, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
         lady.modelTransformation.changePosition(new Vector3f(9.55f,2.35f,4.18f));
         lady.modelTransformation.changeScale(new Vector3f(.28f, .4f, .3f));
         lady.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(lady);
 
         //ramka rejtana
-        Model frame2 = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model frame2 = new Model("woodenFrame", texturedShader, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
         frame2.modelTransformation.changePosition(new Vector3f(9.75f,1.5f,7f));
         frame2.modelTransformation.changeScale(new Vector3f(.4f, .6f, 0.45f));
         frame2.modelTransformation.rotate(new Vector3f(90,180,0));
         renderer.addModelsToRender(frame2);
 
         //rejtan
-        Model rejtan = new Model("rejtan", shader1, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model rejtan = new Model("rejtan", texturedShader, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
         rejtan.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,7f));
         rejtan.modelTransformation.changeScale(new Vector3f(.28f, .4f, .35f));
        // rejtan.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(rejtan);
 
         //podstawka
-        Model stand = new Model("mat", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model stand = new Model("mat", texturedShader, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
         stand.modelTransformation.changePosition(new Vector3f(1,-0.2f,8));
         stand.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
         renderer.addModelsToRender(stand);
@@ -210,22 +224,7 @@ public class Main {
             renderer.renderModels();
             displayManager.update();
 
-
-
-          /* model2.modelTransformation.changePosition(
-                    new Vector3f(model2.modelTransformation.getPosition().x,
-                            model2.modelTransformation.getPosition().y,
-                            model2.modelTransformation.getPosition().z - .1f
-                    )
-            );
-            model1.modelTransformation.changePosition(
-                    new Vector3f(model1.modelTransformation.getPosition().x,
-                            model1.modelTransformation.getPosition().y,
-                            model1.modelTransformation.getPosition().z - .1f
-                    )
-            );*/
-
-          artObject.modelTransformation.rotate(new Vector3f(0,2,0));
+          artObject.modelTransformation.rotate(new Vector3f(0,1.2f,0));
           dawid.modelTransformation.rotate(new Vector3f(0,1,0));
 
         }
