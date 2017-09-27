@@ -11,7 +11,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class TexturedShader extends ShaderProgram implements IApplicationEvents {
 
-    private static int MAX_LIGHTS = 4;
+    private static int MAX_LIGHTS = 6;
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;

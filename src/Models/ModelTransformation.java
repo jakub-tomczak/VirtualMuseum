@@ -29,9 +29,16 @@ public class ModelTransformation {
 
     public void increasePosition()
     {
-        this.position.x += .001f;
-        this.position.y += .001f;
-        this.position.z += .001f;
+        this.position.x += .5f;
+        this.position.y += .5f;
+        this.position.z += .5f;
+    }
+
+    public void decreasePosition()
+    {
+        this.position.x -= .5f;
+        this.position.y -= .5f;
+        this.position.z -= .5f;
     }
 
     public void rotate()

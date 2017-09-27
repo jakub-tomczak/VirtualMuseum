@@ -2,13 +2,13 @@
 
 in vec2 f_textureCoord;
 in vec3 surfaceNormal;
-in vec3 toLightVector[4];
+in vec3 toLightVector[6];
 in vec3 toCameraVector;
 
 out vec4 out_Color;
 
 uniform sampler2D texture_diff; //nowa zmianna jednorodna
-uniform vec3 lightColor[4];
+uniform vec3 lightColor[6];
 uniform float cameraReflection;
 uniform float reflectivity;
 

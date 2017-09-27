@@ -46,10 +46,11 @@ public class Main {
         Camera mainCamera = new Camera(new Vector3f(5,1,5));
 
         List<Light>lights = new ArrayList<Light>();
-        lights.add(new Light(new Vector3f(7.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f))); // pozycja i kolor
-        lights.add(new Light(new Vector3f(7.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
-        lights.add(new Light(new Vector3f(2.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
-        lights.add(new Light(new Vector3f(2.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        lights.add(new Light(new Vector3f(7.5f,2,2.5f),new Vector3f(0.3f,0.3f,0.3f))); // pozycja i kolor
+        lights.add(new Light(new Vector3f(7.5f,2,7.5f),new Vector3f(0.3f,0.3f,0.3f)));
+        lights.add(new Light(new Vector3f(2.5f,2,7.5f),new Vector3f(0.3f,0.3f,0.3f)));
+        lights.add(new Light(new Vector3f(2.5f,2,2.5f),new Vector3f(0.3f,0.3f,0.3f)));
+     //  lights.add(new Light(new Vector3f(5,10,5),new Vector3f(0.8f,0.8f,0.8f))); // świało dzienne
         //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
      //   lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
       //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
@@ -80,6 +81,7 @@ public class Main {
         Texture texture3 = Texture.loadTexture("frameWood", 0);
         Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
+        Texture texture6 = Texture.loadTexture("clouds", 0);
 
       /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
@@ -200,6 +202,15 @@ public class Main {
         stand2.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
         renderer.addModelsToRender(stand2);
 
+        //niebo
+
+        Model sky = new Model("sky", shader1, texture6, ObjectLoader.FacesMode.VertexNormalIndices);
+        sky.modelTransformation.changePosition(new Vector3f(5,20,5));
+        sky.modelTransformation.rotate(new Vector3f(0,0,180));
+        sky.modelTransformation.changeScale(new Vector3f(3,3,3));
+        renderer.addModelsToRender(sky);
+
+
 
 
         Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
@@ -243,6 +254,7 @@ public class Main {
 
           artObject.modelTransformation.rotate(new Vector3f(0,1.2f,0));
           dawid.modelTransformation.rotate(new Vector3f(0,1,0));
+          moveSky(sky);
 
         }
 
@@ -252,6 +264,10 @@ public class Main {
 
     }
 
+    public void moveSky(Model sky)
+    {
+        sky.modelTransformation.rotate(new Vector3f(0,0.1f,0));
+    }
     public void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
