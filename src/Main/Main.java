@@ -46,8 +46,14 @@ public class Main {
         Camera mainCamera = new Camera(new Vector3f(5,1,5));
 
         List<Light>lights = new ArrayList<Light>();
-       // lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
-        lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1f,1f,1)));
+        lights.add(new Light(new Vector3f(7.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f))); // pozycja i kolor
+        lights.add(new Light(new Vector3f(7.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        lights.add(new Light(new Vector3f(2.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        lights.add(new Light(new Vector3f(2.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+     //   lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+      //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+    //    lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
         //lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
        // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
@@ -74,10 +80,12 @@ public class Main {
         Texture texture3 = Texture.loadTexture("frameWood", 0);
         Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
-        texture1.setReflectivity(0.1f);
+        Texture texture4 = Texture.loadTexture("dama", 0);
+
+      /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
         texture2.setReflectivity(1f);
-        texture2.setCameraReflectDistance(10);
+        texture2.setCameraReflectDistance(10);*/
 
         //dach
         Texture roofTexture = Texture.loadTexture("simple2", 0);
@@ -90,11 +98,9 @@ public class Main {
 
         //instalacja
         Texture artObjectTexture = Texture.loadTexture("rust", 0);
-        artObjectTexture.setCameraReflectDistance(1);
-        artObjectTexture.setReflectivity(100f);
-        Model artObject = new Model("instalacja", texturedShader, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        artObject.modelTransformation.changeScale(new Vector3f(.3f,.3f,.3f));
-        artObject.modelTransformation.changePosition(new Vector3f(1.5f,1.4f,8.5f));
+        Model artObject = new Model("instalacja", shader1, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        artObject.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
+        artObject.modelTransformation.changePosition(new Vector3f(5.7f,2f,8.5f));
         renderer.addModelsToRender(artObject);
 
         //kolumna
@@ -136,6 +142,7 @@ public class Main {
         }
 
 
+       // renderer.useLight(lights);
         //lampa
       /*  Texture lampTexture = Texture.loadTexture("simple2", 0);
         Model lamp = new Model("lamp2", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
@@ -144,44 +151,50 @@ public class Main {
         */
 
         //dawid
-        Model dawid = new Model("david3", texturedShader, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
-        dawid.modelTransformation.changePosition(new Vector3f(5f,.2f,5f));
+        Model dawid = new Model("david6", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        dawid.modelTransformation.changePosition(new Vector3f(1.8f,1.49f,8.5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
         //ramka damy
-        Model frame = new Model("woodenFrame", texturedShader, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model frame = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
         frame.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,4f));
         frame.modelTransformation.changeScale(new Vector3f(.4f, .4f, 0.3f));
         frame.modelTransformation.rotate(new Vector3f(0,180,1));
         renderer.addModelsToRender(frame);
 
         //dama z gronostajem
-        Model lady = new Model("dama", texturedShader, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model lady = new Model("dama", shader1, texture4, ObjectLoader.FacesMode.VertexNormalIndices);
         lady.modelTransformation.changePosition(new Vector3f(9.55f,2.35f,4.18f));
         lady.modelTransformation.changeScale(new Vector3f(.28f, .4f, .3f));
         lady.modelTransformation.rotate(new Vector3f(0,28,180));
         renderer.addModelsToRender(lady);
 
         //ramka rejtana
-        Model frame2 = new Model("woodenFrame", texturedShader, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model frame2 = new Model("woodenFrame", shader1, texture3, ObjectLoader.FacesMode.VertexNormalIndices);
         frame2.modelTransformation.changePosition(new Vector3f(9.75f,1.5f,7f));
         frame2.modelTransformation.changeScale(new Vector3f(.4f, .6f, 0.45f));
         frame2.modelTransformation.rotate(new Vector3f(90,180,0));
         renderer.addModelsToRender(frame2);
 
         //rejtan
-        Model rejtan = new Model("rejtan", texturedShader, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model rejtan = new Model("rejtan", shader1, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
         rejtan.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,7f));
         rejtan.modelTransformation.changeScale(new Vector3f(.28f, .4f, .35f));
-       // rejtan.modelTransformation.rotate(new Vector3f(0,28,180));
+        rejtan.modelTransformation.rotate(new Vector3f(0,180,0));
         renderer.addModelsToRender(rejtan);
 
         //podstawka
-        Model stand = new Model("mat", texturedShader, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model stand = new Model("mat", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
         stand.modelTransformation.changePosition(new Vector3f(1,-0.2f,8));
         stand.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
         renderer.addModelsToRender(stand);
+
+        //podstawka
+        Model stand2 = new Model("mat", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        stand2.modelTransformation.changePosition(new Vector3f(5,-0.2f,8));
+        stand2.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
+        renderer.addModelsToRender(stand2);
 
 
 
