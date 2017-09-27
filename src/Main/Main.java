@@ -46,8 +46,14 @@ public class Main {
         Camera mainCamera = new Camera(new Vector3f(5,1,5));
 
         List<Light>lights = new ArrayList<Light>();
-       // lights.add(new Light(new Vector3f(10,0,0),new Vector3f(1,1,1))); // pozycja i kolor
-        lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
+        lights.add(new Light(new Vector3f(7.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f))); // pozycja i kolor
+        lights.add(new Light(new Vector3f(7.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        lights.add(new Light(new Vector3f(2.5f,2,7.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        lights.add(new Light(new Vector3f(2.5f,2,2.5f),new Vector3f(0.4f,0.4f,0.4f)));
+        //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+     //   lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+      //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
+    //    lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
         //lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
        // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
         ModelsRenderer renderer = new ModelsRenderer();
@@ -74,10 +80,10 @@ public class Main {
         Texture texture3 = Texture.loadTexture("frameWood", 0);
         Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
-        texture1.setReflectivity(0.1f);
+      /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
         texture2.setReflectivity(1f);
-        texture2.setCameraReflectDistance(10);
+        texture2.setCameraReflectDistance(10);*/
 
         //dach
         Texture roofTexture = Texture.loadTexture("nightSky1024x1024", 0);
@@ -89,8 +95,8 @@ public class Main {
         //instalacja
         Texture artObjectTexture = Texture.loadTexture("rust", 0);
         Model artObject = new Model("instalacja", shader1, artObjectTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        artObject.modelTransformation.changeScale(new Vector3f(.1f,.1f,.1f));
-        artObject.modelTransformation.changePosition(new Vector3f(4,.4f,4));
+        artObject.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
+        artObject.modelTransformation.changePosition(new Vector3f(5.7f,2f,8.5f));
         renderer.addModelsToRender(artObject);
 
         //kolumna
@@ -116,12 +122,15 @@ public class Main {
                 Texture lampTexture = Texture.loadTexture("simple2", 0);
                 Model lamp = new Model("lamp", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
                 lamp.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,2f,2.5f + j*5f));
+              /* lights.add(new Light(new Vector3f(lamp.modelTransformation.getPosition().x
+                       ,lamp.modelTransformation.getPosition().y,lamp.modelTransformation.getPosition().z),new Vector3f(0.25f,0.25f,0.25f)));*/
                 renderer.addModelsToRender(lamp);
 
             }
         }
 
 
+       // renderer.useLight(lights);
         //lampa
       /*  Texture lampTexture = Texture.loadTexture("simple2", 0);
         Model lamp = new Model("lamp2", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
@@ -131,7 +140,7 @@ public class Main {
 
         //dawid
         Model dawid = new Model("david6", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
-        dawid.modelTransformation.changePosition(new Vector3f(5f,1.18f,5f));
+        dawid.modelTransformation.changePosition(new Vector3f(1.8f,1.49f,8.5f));
         dawid.modelTransformation.changeScale(new Vector3f(.3f, .3f, .3f));
         renderer.addModelsToRender(dawid);
 
@@ -168,6 +177,12 @@ public class Main {
         stand.modelTransformation.changePosition(new Vector3f(1,-0.2f,8));
         stand.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
         renderer.addModelsToRender(stand);
+
+        //podstawka
+        Model stand2 = new Model("mat", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
+        stand2.modelTransformation.changePosition(new Vector3f(5,-0.2f,8));
+        stand2.modelTransformation.changeScale(new Vector3f(.5f,.5f,.5f));
+        renderer.addModelsToRender(stand2);
 
 
 
