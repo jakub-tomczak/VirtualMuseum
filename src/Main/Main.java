@@ -59,7 +59,7 @@ public class Main {
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
-        TexturedShader texturedShader = new TexturedShader("v_textured", "f_textured");
+        TexturedShader shader1 = new TexturedShader("v_textured", "f_textured");
 
 
         //TODO:
@@ -80,7 +80,6 @@ public class Main {
         Texture texture3 = Texture.loadTexture("frameWood", 0);
         Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
-        Texture texture4 = Texture.loadTexture("dama", 0);
 
       /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
@@ -91,7 +90,7 @@ public class Main {
         Texture roofTexture = Texture.loadTexture("simple2", 0);
         roofTexture.setCameraReflectDistance(10);
         roofTexture.setReflectivity(1f);
-        Model roof = new Model("dach2", texturedShader, roofTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model roof = new Model("dach2", shader1, roofTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         roof.modelTransformation.changePosition(new Vector3f(5,2.4f,5));
         roof.modelTransformation.changeScale(new Vector3f(1.05f,1.05f,1.05f));
         renderer.addModelsToRender(roof);
@@ -107,7 +106,7 @@ public class Main {
         Texture columnTexture = Texture.loadTexture("simple2",0);
         columnTexture.setCameraReflectDistance(10);
         columnTexture.setReflectivity(.1f);
-        Model column = new Model("kolumna", texturedShader, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model column = new Model("kolumna", shader1, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
         column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
         renderer.addModelsToRender(column);
@@ -116,7 +115,7 @@ public class Main {
         Texture dragonTexture = Texture.loadTexture("dragonScale256x256", 0);
         dragonTexture.setCameraReflectDistance(10);
         dragonTexture.setReflectivity(3f);
-        Model dragon = new Model("dragon", texturedShader, dragonTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+        Model dragon = new Model("dragon", shader1, dragonTexture, ObjectLoader.FacesMode.VertexNormalIndices);
         dragon.modelTransformation.changeScale(new Vector3f(.2f,.2f,.2f));
         dragon.modelTransformation.changePosition(new Vector3f(5,.4f,.5f));
         dragon.modelTransformation.rotate(new Vector3f(0,0,0));
@@ -128,13 +127,13 @@ public class Main {
             for(int j=0;j<2;j++)
             {
                 Texture lampTexture = Texture.loadTexture("marble3", 0);
-                Model lamp = new Model("lamp3", texturedShader, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+                Model lamp = new Model("lamp3", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
                 lamp.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,7f,2.5f + j*5f));
                 lamp.modelTransformation.changeScale(new Vector3f(1.3f, 1.3f, 1.3f));
                 renderer.addModelsToRender(lamp);
                 //bulb
                 Texture bulbTexture = Texture.loadTexture("bulb", 0);
-                Model bulb = new Model("bulb", texturedShader, bulbTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+                Model bulb = new Model("bulb", shader1, bulbTexture, ObjectLoader.FacesMode.VertexNormalIndices);
                 bulb.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,7.5f,2.5f + j*5f));
                 bulb.modelTransformation.changeScale(new Vector3f(1.3f, 1.3f, 1.3f));
                 renderer.addModelsToRender(bulb);

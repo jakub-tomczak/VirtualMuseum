@@ -9,5 +9,5 @@ uniform mat4 transformationMatrix;  //do ustalania pozycji każdego z obiektów
 void main(void)
 {
     gl_Position = transformationMatrix*vec4(position, 1.0);
-    colour = vec3(position.x + .1, .2, position.y );
+    colour = vec3(1, 0, 0);
 }
