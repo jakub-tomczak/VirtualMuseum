@@ -82,6 +82,8 @@ public class Main {
         Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
         Texture texture6 = Texture.loadTexture("clouds", 0);
+        texture6.setReflectivity(1f);
+        texture6.setCameraReflectDistance(2);
 
       /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
@@ -207,7 +209,7 @@ public class Main {
         Model sky = new Model("sky", shader1, texture6, ObjectLoader.FacesMode.VertexNormalIndices);
         sky.modelTransformation.changePosition(new Vector3f(5,20,5));
         sky.modelTransformation.rotate(new Vector3f(0,0,180));
-        sky.modelTransformation.changeScale(new Vector3f(3,3,3));
+        sky.modelTransformation.changeScale(new Vector3f(10,10,10));
         renderer.addModelsToRender(sky);
 
 
@@ -266,7 +268,14 @@ public class Main {
 
     public void moveSky(Model sky)
     {
-        sky.modelTransformation.rotate(new Vector3f(0,0.1f,0));
+        sky.modelTransformation.rotate(new Vector3f(0,0.01f,0));
+        sky.modelTransformation.changePosition(
+                new Vector3f(
+                        (float)((sky.modelTransformation.getPosition().x + (Math.random() % 2)) -1f)*0.005f,
+                        (float)(sky.modelTransformation.getPosition().y ),
+                        (float)((sky.modelTransformation.getPosition().z + (Math.random() % 2)) -1f)*0.005f
+                )
+        );
     }
     public void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
