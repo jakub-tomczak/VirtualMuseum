@@ -78,8 +78,9 @@ public class Main {
         Texture texture1 = Texture.loadTexture("bohomaz", 0);
         Texture texture2 = Texture.loadTexture("marble3", 0);
         Texture texture3 = Texture.loadTexture("frameWood", 0);
-        Texture texture4 = Texture.loadTexture("dama", 0);
         Texture texture5 = Texture.loadTexture("rejtan", 0);
+        Texture texture4 = Texture.loadTexture("dama", 0);
+
       /*  texture1.setReflectivity(0.1f);
         texture1.setCameraReflectDistance(5000);
         texture2.setReflectivity(1f);
@@ -169,7 +170,7 @@ public class Main {
         Model rejtan = new Model("rejtan", shader1, texture5, ObjectLoader.FacesMode.VertexNormalIndices);
         rejtan.modelTransformation.changePosition(new Vector3f(9.7f,1.5f,7f));
         rejtan.modelTransformation.changeScale(new Vector3f(.28f, .4f, .35f));
-       // rejtan.modelTransformation.rotate(new Vector3f(0,28,180));
+        rejtan.modelTransformation.rotate(new Vector3f(0,180,0));
         renderer.addModelsToRender(rejtan);
 
         //podstawka
