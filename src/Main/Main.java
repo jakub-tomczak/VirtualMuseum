@@ -102,14 +102,19 @@ public class Main {
         artObject.modelTransformation.changePosition(new Vector3f(5.7f,2f,8.5f));
         renderer.addModelsToRender(artObject);
 
-        //kolumna
-        Texture columnTexture = Texture.loadTexture("simple2",0);
-        columnTexture.setCameraReflectDistance(10);
-        columnTexture.setReflectivity(.1f);
-        Model column = new Model("kolumna", shader1, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        column.modelTransformation.changePosition(new Vector3f(1,.4f,1));
-        column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
-        renderer.addModelsToRender(column);
+
+        for(int i=0;i<2;i++)
+        {
+            //kolumna
+            Texture columnTexture = Texture.loadTexture("simple2",0);
+            columnTexture.setCameraReflectDistance(10);
+            columnTexture.setReflectivity(.1f);
+            Model column = new Model("kolumna", shader1, columnTexture, ObjectLoader.FacesMode.VertexNormalIndices);
+            column.modelTransformation.changePosition(new Vector3f(2 + 6*i,.4f,1));
+            column.modelTransformation.changeScale(new Vector3f(.25f,.25f,.25f));
+            renderer.addModelsToRender(column);
+
+        }
 
         //smok
         Texture dragonTexture = Texture.loadTexture("dragonScale256x256", 0);
@@ -226,7 +231,7 @@ public class Main {
         terrain.getTerrainModel().loadProjectionMatrix(renderer.getProjectionMatrix());
         terrain.getTerrainModel().modelTransformation.changePosition(new Vector3f(0,.3f,0));
 
-        Walls wallsGenerator = new Walls(.1f,.1f, multipleTextureShader, wallTexture);
+        Walls wallsGenerator = new Walls(multipleTextureShader, wallTexture);
 
         while (!Display.isCloseRequested()) {
 
