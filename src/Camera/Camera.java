@@ -109,13 +109,6 @@ public class Camera {
 
     public void calculateAngle()
     {
-       // time = Sys.getTime();
-       // lastTime = time;
-      /*  try {
-            TimeUnit.MILLISECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         dx = Mouse.getDX();
         dy = Mouse.getDY();
 

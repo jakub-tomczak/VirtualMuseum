@@ -50,24 +50,13 @@ public class Main {
         lights.add(new Light(new Vector3f(7.5f,2,7.5f),new Vector3f(0.3f,0.3f,0.3f)));
         lights.add(new Light(new Vector3f(2.5f,2,7.5f),new Vector3f(0.3f,0.3f,0.3f)));
         lights.add(new Light(new Vector3f(2.5f,2,2.5f),new Vector3f(0.3f,0.3f,0.3f)));
-     //  lights.add(new Light(new Vector3f(5,10,5),new Vector3f(0.8f,0.8f,0.8f))); // świało dzienne
-        //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
-     //   lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
-      //  lights.add(new Light(new Vector3f(5,1,5),new Vector3f(0.5f,0.5f,0.5f)));
-    //    lights.add(new Light(new Vector3f(10,10,20),new Vector3f(1,1,1)));
-        //lights.add(new Light(new Vector3f(100,10,0),new Vector3f(1,1,1)));
-       // lights.add(new Light(new Vector3f(-100,-5,-50),new Vector3f(1,1,1)));
+
         ModelsRenderer renderer = new ModelsRenderer();
         renderer.useCamera(mainCamera);
         renderer.useLight(lights);
         TexturedShader shader1 = new TexturedShader("v_textured", "f_textured");
 
 
-        //TODO:
-        //projectionMatrix bindować do zmiennej jednorodnej tylko raz
-
-        //będzie kilka obrazów, więc aby nie ładować za każdym razem modelu lepiej przerzucić dane
-        //albo podpiąć się pod ten sam vao
 
         //shader jest przypisywany do modelu
         //w renderer.renderModels jest wywyoływane startUsingShader i stopUsingShader
@@ -85,10 +74,6 @@ public class Main {
         texture6.setReflectivity(1f);
         texture6.setCameraReflectDistance(2);
 
-      /*  texture1.setReflectivity(0.1f);
-        texture1.setCameraReflectDistance(5000);
-        texture2.setReflectivity(1f);
-        texture2.setCameraReflectDistance(10);*/
 
         //dach
         Texture roofTexture = Texture.loadTexture("simple2", 0);
@@ -142,6 +127,7 @@ public class Main {
                 renderer.addModelsToRender(lamp);
                 //bulb
                 Texture bulbTexture = Texture.loadTexture("bulb", 0);
+                bulbTexture.setReflectivity(3f);
                 Model bulb = new Model("bulb", shader1, bulbTexture, ObjectLoader.FacesMode.VertexNormalIndices);
                 bulb.modelTransformation.changePosition(new Vector3f(2.5f + i*5f,7.5f,2.5f + j*5f));
                 bulb.modelTransformation.changeScale(new Vector3f(1.3f, 1.3f, 1.3f));
@@ -150,13 +136,6 @@ public class Main {
         }
 
 
-       // renderer.useLight(lights);
-        //lampa
-      /*  Texture lampTexture = Texture.loadTexture("simple2", 0);
-        Model lamp = new Model("lamp2", shader1, lampTexture, ObjectLoader.FacesMode.VertexNormalIndices);
-        lamp.modelTransformation.changePosition(new Vector3f(2.5f,5f,2.5f));
-        renderer.addModelsToRender(lamp);
-        */
 
         //dawid
         Model dawid = new Model("david6", shader1, texture2, ObjectLoader.FacesMode.VertexNormalIndices);
@@ -215,7 +194,7 @@ public class Main {
 
 
 
-        Texture terrainTexture = Texture.loadTexture("woodenSurface", 0);
+        Texture terrainTexture = Texture.loadTexture("frameWood", 0);
         ShaderProgram multipleTextureShader = new TerrainShader("v_terrain", "f_terrain");
 
         //sciany
